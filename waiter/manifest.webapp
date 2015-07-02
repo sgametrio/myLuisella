@@ -1,0 +1,13 @@
+{
+  "name": "myLuisella",
+  "description": "A huge help for waiters",
+  "launch_path": "/index.html",
+  "icons": {
+    "256": "/images/myLuisella256.png"
+  },
+  "developer": {
+    "name": "Demetrio Carrara",
+    "url": "http://www.albergoristoranteluisella.com"
+  },
+  "default_locale": "en"
+}

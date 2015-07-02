@@ -1,0 +1,14 @@
+.no-margin-top {
+	margin-top: 0;
+	padding-top: 0;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.loading {
+	width: 10%;
+	height: 10%;
+	margin: auto;
+}

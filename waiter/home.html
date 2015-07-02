@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>iLuisella - FlatUI</title>
+		<meta charset="utf-8" />
+        <!-- meta tag for installable web apps -->
+        <meta name="theme-color" content="#303F9F">
+        <!-- Chrome style - manifest.json -->
+        <link rel="manifest" href="manifest.json">
+		<!-- For device specific -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		
+		<!-- Include flat-ui.css for jquery mobile 1.3.1 -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/animate.min.css">
+		<!-- Include jquery-mobile 1.3.1 minified version -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.mobile-1.3.1.min.js"></script>
+        <script src="js/checkSessionHome.js"></script>		
+		<script src="js/app.js"></script>
+        <script src="install.js"></script>
+		
+	</head>
+	<body>
+	
+		<div id="main-page" data-role="page">
+			
+			<!-- Header -->
+			<div data-role="header" position="fixed" data-theme="f">
+				<a data-iconpos="notext" href="#main-panel" data-role="button" data-icon="flat-menu"></a>
+				<h1 id="header-title">myLuisella</h1>
+				<a data-iconpos="notext" id="home-button" data-role="button" data-icon="home"></a>
+			</div>
+		
+			<!-- Left Panel -->
+			<div data-role="panel" id="main-panel" data-theme="a">
+				<ul data-role="listview" data-theme="b">
+					<li data-icon="flat-calendar"><a style="text-decoration:none !important;" href="#" class="all-table" id="all-table">Registered tables</a></li>
+					<li data-icon="flat-plus"><a style="text-decoration:none !important;" href="#" id="new-table">Register a new table</a></li>
+					<li data-icon="flat-plus"><a style="text-decoration:none !important;" href="#" id="new-order">Make an order</a></li>
+				  	<li data-icon="flat-lock"><a style="text-decoration:none !important;" href="#" id="logout">Log out</a></li>
+				</ul>
+			</div>
+			
+			<!-- Main content -->
+			<div data-role="content" data-theme="b" id="main-content" role="main">
+				<div id="replaceable">
+				</div>
+				<div id="ajax-table-panel">
+				</div>
+			</div>
+		</div>
+        
+        <!--HIDE ALL-->
+        
+        <div id="hideAll" data-role="page">
+            
+            <!-- Static content / HOME PAGE-->
+
+            <div id="home-div">
+				<h2 class="center">Welcome to myLuisella!</h2>
+				<hr/>
+				If you install myLuisella app navigation will be faster and smoother!<br/>
+				<button data-theme="g" id="install">Install <strong>myLuisella</strong></button>
+				<div id="install-div"></div>
+            </div>
+
+            <!-- Static content / NEW TABLE-->
+
+            <div id="new-table-content">
+                <h2 class="center no-margin-top">Register a table</h2>
+                <hr/>
+                <div class="animated bounceInRight" data-role="fieldcontain">
+                    <label for="table-name">Name: </label>
+                    <input id="table-name" pattern="^[a-zA-Z0-9 ']*$" type="text">
+                </div>
+                <div class="animated bounceInLeft" data-role="fieldcontain">
+                    <label for="table-number">Number (0-99): </label>
+                    <input id="table-number" pattern="[0-9]+" type="number">
+                </div>
+                <div class="animated bounceInRight" data-role="fieldcontain">
+                    <label for="customers">Number of the people sat at: </label>
+                    <input id="customers" pattern="[0-9]+" type="number">
+                </div>
+
+                <fieldset class="animated bounceIn ui-grid-a">
+                    <div class="ui-block-a"><button id="reset-button-table" data-icon="flat-cross" data-theme="d">Reset</button></div>
+                    <div class="ui-block-b"><button id="submit-button-table" data-icon="flat-plus" data-theme="b">New</button></div>
+                </fieldset>
+                <div style="text-align:center;width:100%;" id="ajax-panel"></div>
+            </div>
+
+            <!-- Static content / TABLE ORDERS-->
+            
+            <div id="open-table-content">
+                <div style="text-align:center;width:100%;" id="ajax-open-table"></div>
+                <div data-role="collapsible-set" data-theme="b" data-content-theme="b" class="no-margin-top">
+                    <div data-role="collapsible" data-collapsed-icon="flat-new" data-expanded-icon="flat-cross" data-collapsed="true">
+                        <h3>Modify table info</h3>
+                        <p id="table-infos">
+                            <div data-role="fieldcontain">
+                                <label for="table-name">Table name: </label>
+                                <input id="table-name" value="" pattern="^[a-zA-Z0-9 ']*$" type="text">
+                            </div>
+                            <div data-role="fieldcontain">
+                                <label for="table-number">Table number: </label>
+                                <input id="table-number" value="" pattern="[0-9]+" type="number">
+                            </div>
+                            <div data-role="fieldcontain">
+                                <label for="customers">Customers at the table: </label>
+                                <input id="customers" value="" pattern="[0-9]+" type="number">
+                            </div>
+                            <div style="text-align:center" id="ajax-modify-table"></div>
+                            <button id="modify-table" data-icon="flat-checkround" data-theme="a">Apply changes</button>
+							<button id="delete-table" data-icon="flat-cross" data-theme="d">Delete table</button>
+                        </p>
+                    </div>
+                </div>
+                <!-- i piatti dell'ordine si vedono qua -->
+				<div data-role="fieldcontain">
+					<div class="animated bounceInDown" data-role="collapsible-set" data-theme="g" data-content-theme="g" id="collapsible-order-content">
+
+					</div>
+				</div>
+				<button data-icon="flat-plus" data-theme="d" id="make-order-from-tables">Make order</button>
+            </div>	
+			
+            <!-- Static content / NEW ORDER-->
+        
+            <div id="new-orders">
+                <h2 class="center no-margin-top">Select plates, quantity and table</h2>
+                <hr/>
+
+                <div class="center no-margin-top" data-role="fieldcontain">
+                    <div style="color:red" class="center" id="table-ajax"></div>
+                    <select data-placeholder="Select table:" id="tables-available" name="tables-available-name" data-theme="a">
+                        <option selected value="">Select table:</option>
+                    </select>
+                </div>
+                
+                <div data-role="fieldcontain">
+                    <!-- All listed meals are below -->
+                    <div class="animated bounceInDown" data-role="collapsible-set" data-theme="g" data-content-theme="g" id="collapsible-order">
+
+                    </div>
+                </div>
+                <button data-icon="flat-plus" data-theme="d" id="make-order">Make order</button>
+                <hr/>
+                <div class="center" id="menu-ajax"></div>
+                <button data-icon="refresh" data-theme="a" id="update-menu">Update menu</button>
+            </div>
+        </div>
+			
+		
+	</body>
+</html>
