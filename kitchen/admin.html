@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Bootstrap 3 Admin</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootflat.min.css" rel="stylesheet">
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- header -->
+		<nav id="top-nav" class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="index.html">Dashboard myLuisella kitchen</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
+							<ul id="g-account-menu" class="dropdown-menu" role="menu">
+								<li><a href="admin.html">Administrative tools</a></li>
+								<li><a href="menu.html">Change today menu</a></li>
+							</ul>
+						</li>
+						<li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- /container -->
+		</nav>
+		<!-- /Header -->
+
+		<!-- Main -->
+		<div class="container" style="padding-left:5%;padding-right:5%;margin-top:60px">
+			<div>	
+				<h2 class='page-header'>Add a new ingredient </h2>
+				<form class='form-horizontal' id='new-ingredient-form' method='post'>
+				  <fieldset>
+					<div class='form-group' >
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Ingredient name:</label>
+						<div class='col-sm-6 col-lg-5' class='validateForm'>
+							<input type='text' id='ingredient-name' class='form-control' name='ingredientName' placeholder='Insert ingredient name'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Allergen (optional)</label>
+						<div class='col-sm-6 col-lg-5'>
+							<input type='text' id='allergen' class='form-control' name='allergen' placeholder='Enter the abbreviation of the allergen'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<div class='col-sm-3 col-lg-3 col-sm-offset-4'>
+							<input type='button' id="submit-button-ingredient" class='btn btn-info' value='Add ingredient'>
+						</div>
+					</div>
+					<div class="alert alert-danger col-sm-6 col-lg-6 col-sm-offset-3" hidden id="ajax-panel-ingredient" role="alert"></div>
+				  </fieldset>
+				</form>
+			</div>
+			
+			<div>	
+				<h2 class='page-header'>Add a new plate</h2>
+				<form class='form-horizontal' id='new-plate-form' method='post'>
+				  <fieldset>
+					<div class='form-group' >
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Plate name:</label>
+						<div class='col-sm-6 col-lg-5'>
+							<input type='text' id='food-name' class='form-control' name='food-name' placeholder='Insert plate name'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Plate price (in euros, xx.xx)</label>
+						<div class='col-sm-6 col-lg-5'>
+							<input type='number' id='food-price' class='form-control' name='food-price' placeholder='Enter the price for the specified plate'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Description (optional)</label>
+						<div class='col-sm-6 col-lg-5'>
+							<textarea type='number' id='description' class='form-control' name='description' placeholder='Optional description goes here'></textarea>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Select category</label>
+						<div class='col-sm-6 col-lg-5'>
+							<select id='category' class='form-control' name='category' placeholder="Here should appear categories' list">
+							</select>
+						</div>
+					</div>
+					<div class='form-group'>
+						<div class='col-sm-3 col-lg-3 col-sm-offset-4'>
+							<input type='button' id="submit-button-plate" class='btn btn-info' value='Add plate'>
+						</div>
+					</div>
+					<div class="alert alert-danger col-sm-6 col-lg-6 col-sm-offset-3" hidden id="ajax-panel-plate" role="alert"></div>
+				  </fieldset>
+				</form>
+			</div>
+			
+			<div>	
+				<h2 class='page-header'>Link plate with ingredients</h2>
+				<form class='form-horizontal' id='new-ingredient-form' method='post'>
+				  <fieldset>
+					<div class='form-group' >
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Select plate</label>
+						<div class='col-sm-6 col-lg-5' class='validateForm'>
+							<select id='plate-list' class='form-control'>
+							</select>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Select ingredient</label>
+						<div class='col-sm-6 col-lg-5'>
+							<select id='ingredient-list' class='form-control'>
+							</select>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Quantity (grams/millilitres)</label>
+						<div class='col-sm-6 col-lg-5'>
+							<input type='number' id='quantity' class='form-control' placeholder='Enter the quantity for the specified ingredient'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<div class='col-sm-3 col-lg-3 col-sm-offset-4'>
+							<input type='button' id="link" class='btn btn-info' value='Link!'>
+						</div>
+					</div>
+					<div class="alert alert-danger col-sm-6 col-lg-6 col-sm-offset-3" hidden id="ajax-panel-list" role="alert"></div>
+				  </fieldset>
+				</form>
+			</div>
+		</div>
+		<!-- /Main -->
+	<!-- script references -->
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/admin.js"></script>
+	</body>
+</html>
