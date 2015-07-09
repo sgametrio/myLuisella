@@ -1,5 +1,5 @@
 //If true that mean we are on mobile and not on localhost.
-var DEBUG_MOBILE = false;
+var DEBUG_MOBILE = true;
 var SERVER_IP = "https://192.168.0.200";
 
 if(!DEBUG_MOBILE)
