@@ -21,9 +21,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<script> 
 			window.addEventListener('load', function() {
 			  var outputElement = document.getElementById('output');
-			  navigator.serviceWorker.register('js/service-worker.js', { scope: './' })
+			  navigator.serviceWorker.register('service-worker.js', { scope: './' })
 				.then(function(r) {
-				  console.log('registered service worker');
+				  alert('registered service worker');
 				})
 				.catch(function(whut) {
 				  console.error('uh oh... ');

@@ -1,0 +1,13 @@
+{
+  "short_name": "myLuisella",
+  "name": "myLuisella - waiter",
+  "icons": [
+    {
+      "src": "images/myLuisela_giusta.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone"
+}
