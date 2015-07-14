@@ -20,10 +20,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<script src="js/checkSessionIndex.js"></script>
 		<script> 
 			window.addEventListener('load', function() {
-			  var outputElement = document.getElementById('output');
 			  navigator.serviceWorker.register('service-worker.js', { scope: './' })
 				.then(function(r) {
-				  alert('registered service worker');
+				  console.log('registered service worker');
 				})
 				.catch(function(whut) {
 				  console.error('uh oh... ');
