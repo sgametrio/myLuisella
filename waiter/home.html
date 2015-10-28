@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>iLuisella - FlatUI</title>
-		<meta charset="utf-8" />
+		<meta charset="utf-8"/>
         <!-- meta tag for installable web apps -->
         <meta name="theme-color" content="#303F9F">
         <!-- Chrome style - manifest.json -->
@@ -20,6 +20,7 @@
         <script src="js/checkSessionHome.js"></script>		
 		<script src="js/app.js"></script>
         <script src="install.js"></script>
+        <script src="js/ipServer.js"></script>
 		
 	</head>
 	<body>
@@ -39,8 +40,10 @@
 					<li data-icon="flat-calendar"><a style="text-decoration:none !important;" href="#" class="all-table" id="all-table">Registered tables</a></li>
 					<li data-icon="flat-plus"><a style="text-decoration:none !important;" href="#" id="new-table">Register a new table</a></li>
 					<li data-icon="flat-plus"><a style="text-decoration:none !important;" href="#" id="new-order">Make an order</a></li>
+				  	<li data-icon="flat-settings"><a style="text-decoration:none !important;" href="#" id="settings">Settings</a></li>
 				  	<li data-icon="flat-lock"><a style="text-decoration:none !important;" href="#" id="logout">Log out</a></li>
 				</ul>
+            
 			</div>
 			
 			<!-- Main content -->
@@ -56,7 +59,7 @@
         
         <div id="hideAll" data-role="page">
             
-            <!-- Static content / HOME PAGE-->
+            <!-- Static content / HOME PAGE -->
 
             <div id="home-div">
 				<h2 class="center">Welcome to myLuisella!</h2>
@@ -65,8 +68,21 @@
 				<button data-theme="g" id="install">Install <strong>myLuisella</strong></button>
 				<div id="install-div"></div>
             </div>
+            
+            <!-- Static content / SETTINGS -->
 
-            <!-- Static content / NEW TABLE-->
+            <div id="settings-content">
+				<h2 class="center">Settings</h2>
+				<hr/>
+				Please be careful, because bad settings can break the app.<br/>
+				<div class="animated bounceInRight" data-role="fieldcontain">
+                    <label for="server-url">Server URL (default is 'https://192.168.1.200'): </label>
+                    <input id="server-url" type="text">
+                </div>
+                <button data-icon="flat-settings" data-theme="d" id="save-settings">Save changes</button>
+            </div>
+
+            <!-- Static content / NEW TABLE -->
 
             <div id="new-table-content">
                 <h2 class="center no-margin-top">Register a table</h2>
@@ -91,7 +107,7 @@
                 <div style="text-align:center;width:100%;" id="ajax-panel"></div>
             </div>
 
-            <!-- Static content / TABLE ORDERS-->
+            <!-- Static content / TABLE ORDERS -->
             
             <div id="open-table-content">
                 <div style="text-align:center;width:100%;" id="ajax-open-table"></div>
@@ -117,7 +133,6 @@
                         </p>
                     </div>
                 </div>
-                <!-- i piatti dell'ordine si vedono qua -->
 				<div data-role="fieldcontain">
 					<div class="animated bounceInDown" data-role="collapsible-set" data-theme="g" data-content-theme="g" id="collapsible-order-content">
 
@@ -126,7 +141,7 @@
 				<button data-icon="flat-plus" data-theme="d" id="make-order-from-tables">Make order</button>
             </div>	
 			
-            <!-- Static content / NEW ORDER-->
+            <!-- Static content / NEW ORDER -->
         
             <div id="new-orders">
                 <h2 class="center no-margin-top">Select plates, quantity and table</h2>
@@ -154,4 +169,4 @@
 			
 		
 	</body>
-</html>
+</html>   

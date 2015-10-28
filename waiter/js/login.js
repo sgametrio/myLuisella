@@ -6,6 +6,7 @@ $(document).ready(function(){
         mozSystem: true
       }
     });
+    document.getElementById("server_url_text").value = $.parseJSON(localStorage.getItem("SERVER_IP"));
 });
 
 function login()
@@ -56,7 +57,7 @@ function signup()
     $.ajaxSetup({
       xhrFields: {
         mozSystem: true
-			//DO NOT SET withCredentials. It breaks everything.
+        //DO NOT SET withCredentials. It breaks everything.
       }
     });
 
@@ -77,4 +78,12 @@ function signup()
         }
     });
     return false;
+}
+
+function changeServerUrl()
+{
+    //TODO: Check valid URL
+    SERVER_IP = document.getElementById("server_url_text").value;
+    localStorage.setItem("SERVER_IP", JSON.stringify(new Object(SERVER_IP)));
+    alert("Now server URL is: " + SERVER_IP);
 }

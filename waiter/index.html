@@ -18,6 +18,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<script src="js/md5.js"></script>
 		<script src="js/login.js"></script>
 		<script src="js/checkSessionIndex.js"></script>
+        <script src="js/ipServer.js"></script>
 		<script> 
 			window.addEventListener('load', function() {
 			  navigator.serviceWorker.register('service-worker.js', { scope: './' })
@@ -44,11 +45,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 			</div>
 			<div class="clear"> </div>
-			<h3>Haven't an account yet? <span><a href="#signup">see below</a><span>.</h3>
+			<h3 style="text-align:center">Haven't an account yet? <span><a href="#signup">see below</a><span>.</h3>
 			<div class="submit">
 				<input type="button" onclick="login()" id="login" value="Log in" >
 			</div>
 			<h3 style="color:red;" id="error"></h3>
+            <div class="clear"> </div>
+            <h3 style="text-align:center">Keep getting connection error? Maybe you are trying to connect to the wrong server. <span><a href="#serverurl">Change server URL</a><span>.</h3>
 			<br/><br/><br/><br/><br/><br/><br/><br/>
 			<a name="signup"></a>
 			<h2>Sign up for <a target="_blank" href="http://www.albergoristoranteluisella.com">myLuisella</a>:</h2>
@@ -65,6 +68,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 			<h3 style="color:red;" id="error-signup"></h3>
 			<div class="clear"> </div>
+            <a name="serverurl"></a>
+            <div class="lable-2">
+                <input id="server_url_text" type="text" class="text">
+            </div>
+            <div class="submit">
+				<input type="button" onclick="changeServerUrl()" id="change_url" value="Change server URL">
+			</div>
 		<!-----//end-main---->
 		</div>
 		<!-----start-copyright---->
