@@ -52,35 +52,42 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<h3 style="color:red;" id="error"></h3>
             <div class="clear"> </div>
             <h3 style="text-align:center">Keep getting connection error? Maybe you are trying to connect to the wrong server. <span><a href="#serverurl">Change server URL</a><span>.</h3>
-			<br/><br/><br/><br/><br/><br/><br/><br/>
+			<br/><br/><br/><br/><br/><br/><br/>
 			<a name="signup"></a>
 			<h2>Sign up for <a target="_blank" href="http://www.albergoristoranteluisella.com">myLuisella</a>:</h2>
-			<div class="lable-2">
-				<input id="signup_username" type="text" class="text" value="username" onclick="this.value=''">
-				<input id="signup_password" type="password" class="text" value="password" onclick="this.value=''">
-				<h3>Admin password:</h3>
-				<input id="signup_admin" type="password" class="text" value="admin_password" onclick="this.value=''">
-			</div>
+            <div class="inset">
+                <div class="lable-2">
+                    <input id="signup_username" type="text" class="text" value="username" onclick="this.value=''">
+                    <input id="signup_password" type="password" class="text" value="password" onclick="this.value=''">
+                    <h3 style="text-align:center">Admin password:</h3>
+                    <input id="signup_admin" type="password" class="text" value="admin_password" onclick="this.value=''">
+                </div>
+            </div>
 			<div class="clear"> </div>
-			<h3>By creating an account, you agree to our <span><a href="#">Terms & Conditions</a> <span></h3>
+			<h3 style="text-align:center">By creating an account, you agree to our <span><a href="#">Terms & Conditions</a> <span></h3>
 			<div class="submit">
 				<input type="button" onclick="signup()" id="signup" value="Create account" >
 			</div>
-			<h3 style="color:red;" id="error-signup"></h3>
+			<h3 style="text-align:center; color:red" id="error-signup"></h3>
 			<div class="clear"> </div>
-            <a name="serverurl"></a>
-            <div class="lable-2">
-                <input id="server_url_text" type="text" class="text">
+            <a name="serverurl">
+                <h3 style="text-align:center; margin-top:10px">Server URL:</h3>    
+            </a>
+            <div class="inset">
+                <div class="lable-2">
+                    <input id="server_url_text" type="text" class="text">
+                </div>
             </div>
             <div class="submit">
 				<input type="button" onclick="changeServerUrl()" id="change_url" value="Change server URL">
 			</div>
+            <div class="clear"> </div>
 		<!-----//end-main---->
 		</div>
 		<!-----start-copyright---->
 		<div class="copy-right">
 			<p>Template by <a href="http://w3layouts.com">w3layouts</a></p> 
-			<p>Modified by <a href="http://themetrio.altervista.org">themetrio</a></p>
+			<p>Modified by <a href="https://themetrio.github.io">themetrio</a></p>
 		</div>
 		<!-----//end-copyright---->
 			

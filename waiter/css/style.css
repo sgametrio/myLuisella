@@ -140,7 +140,8 @@ body{
 	padding: 15px;
 	width: 44%;
 	font-size: 1.1em;
-	margin: 18px 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 	color: #666666;
 	float: left;
 	cursor: pointer;
@@ -159,19 +160,21 @@ body{
 	border-top: none;
 }
 .lable input[type="text"]:hover,.lable-2 input[type="text"]:hover,input[type="Password"]:hover,#active {
-	color:#DCDCDC;
+	color:#BABABA;
 	border-left:6px solid#40A46F;
 }
-.lable-2 input[type="text"],input[type="Password"] { 
+.lable-2 input[type="text"], input[type="Password"] { 
 	padding: 14px;
-	width: 94%;
+	width: 80%;
 	font-size: 1em;
-	margin: 18px 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
 	border:none;
 	color: #666666;
 	cursor: pointer;
 	background: none;
-	float: left;
 	outline: none;
 	font-weight: 700;
 	font-family: 'Oxygen', sans-serif;
@@ -248,12 +251,12 @@ input[type="button"] {
 		width: 48%;
 	}
 	.span1 {
-		width: 49.69%;
+		width: 48%;
 	}
 }
 @media (max-width:1280px){
 	.main{
-		width:80%;
+		width:70%;
 	}
     .span,.span1 {
 		margin:0 auto;
@@ -275,11 +278,13 @@ input[type="button"] {
 		margin: 10px 0px;
 		margin-left:0;
 	}
-	.lable-2 input[type="text"], .lable-2 input[type="text"], input[type="Password"] { 
-		width: 92.3%;
+	.lable-2 input[type="text"], input[type="Password"] { 
+		width: 80%;
 		font-size: 1em;
-		margin: 10px 0px;
-		text-align: left;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        margin-left: auto;
+        margin-right: auto;
 	}
 	input[type="button"] {
 		padding: 15px 15px;
@@ -307,22 +312,6 @@ input[type="button"] {
 	.main h2, .main h3 {
 		padding: 0.5em 0;
 		font-size: 1em;
-	}
-	.lable input[type="text"]:first-child {
-	width: 92%;
-	}
-	.lable input[type="text"], .lable input[type="text"] {
-		width:92%;
-		font-size: 1em;
-		text-align: left;
-		margin: 10px 0px;
-		margin-left:0;
-	}
-	.lable-2 input[type="text"], .lable-2 input[type="text"], input[type="Password"] { 
-		width: 92.3%;
-		font-size: 1em;
-		margin: 10px 0px;
-		text-align: left;
 	}
 	input[type="button"] {
 		padding: 15px 15px;

@@ -42,7 +42,6 @@ function pageinit()
 	
 		$('#main-panel').panel('close');
 		$('#replaceable').empty();
-		$('#ajax-table-panel').empty();
 
 		$.ajax({
 			type: 'GET',

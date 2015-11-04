@@ -52,14 +52,6 @@ function signup()
     //function that converts into an md5 hash the password 
     pass = md5(pw);
     admin_pass = md5(admin_pw);
-    //mozSystem is needed beacuse the app without it can't do any crossdomain request
-    //with ajaxSetup settings are saved for all future AJAX calls.
-    $.ajaxSetup({
-      xhrFields: {
-        mozSystem: true
-        //DO NOT SET withCredentials. It breaks everything.
-      }
-    });
 
     $.ajax({
         type: 'POST',
