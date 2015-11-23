@@ -3,12 +3,32 @@
 	padding-top: 0;
 }
 .center {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 .loading {
 	width: 10%;
 	height: 10%;
 	margin: auto;
+}
+.button-wrap {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+button {
+    /* important has been set to override jQM default button constructor property */
+    font-weight: 900 !important;
+}
+.no-radius {
+    /* important has been set to override jQM default button constructor property */
+    border-radius: 0px !important;
+}
+.form-element {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.controlgroup-textinput {
+    padding-top: .22em;
+    padding-bottom: .22em;
 }
