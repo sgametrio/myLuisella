@@ -12,35 +12,19 @@ function pageinit()
       }
     });
 	
-	//Don't know if this tags are useful
+    /*
+	//Don't know if this tags are useful for FirefoxOS
 	$.mobile.allowCrossDomainPages = true;
     $.support.cors = true;
+    */
     
     /* BUTTONS ACTIONS */
-	
-	
-	//PANEL BUTTON -> Home
-	$('#homepage').click(homepage);
-	
-    function homepage()
-	{
-		$('#main-panel').panel('close');
-		$('#replaceable').empty();
-		$('#ajax-table-panel').empty();
-		$('#replaceable').html($('#home-div').html());
-		$('#replaceable').trigger('create');
-	}
     
-	//NAVBAR -> Home
-	$('#home-button').click(registeredTables);
-    
-    //PANEL BUTTON -> Registered tables
+    //HEADER BUTTON -> Registered tables
 	$('#all-table').click(registeredTables);
 	
 	function registeredTables()
     {
-	
-		$('#main-panel').panel('close');
 		$('#replaceable').empty();
 
 		$.ajax({
@@ -57,13 +41,13 @@ function pageinit()
 				$('#ajax-table-panel').empty();
 				var str = "";
                 //Creating a listview header
-				str = str.concat("<div style='overflow:hidden' data-role='fieldcontain'><ul id='all-tab' class='ui-listview no-margin-top' data-role='listview' data-theme='b' data-inset='true'><li data-role='list-divider' data-theme='a'>Registered tables</li>");
+				str = str.concat("<div style='overflow:hidden' data-role='fieldcontain'><ul class='clr-bg-deep-blue' id='all-tab' class='no-margin-top' data-role='listview' data-inset='true'><li data-role='list-divider'><div class='clr-white'>Registered tables</div></li>");
                 //For each object retrieved through AJAX and JSON it have to be created a line in the listview, having parameters as attributes for a future use.
 				$.each(obj, function() {
-					str = str.concat("<li><a style='text-decoration:none !important;' class='table' tablename='", this['tableName'], "' tablenumber='", this['tableNumber'], "' tablecustomers='", this['customers'], "' href='#' id='", this['tableId'], "'>", this['tableNumber'], " - ", this['tableName'], "</a></li>");
+					str = str.concat("<li data-icon='info'><a class='no-radius table clr-btn-green' tablename='", this['tableName'], "' tablenumber='", this['tableNumber'], "' tablecustomers='", this['customers'], "' href='#' id='", this['tableId'], "'>", this['tableNumber'], " - ", this['tableName'], "</a></li>");
 				//TODO badge with customers
 				});
-				str = str.concat("</ul></div><button data-icon='flat-plus' data-theme='d' id='new-table-from-registered'>Add new table</button>");
+				str = str.concat("</ul></div><button class='ui-btn clr-btn-red' id='new-table-from-registered'>Add new table</button>");
 				$('#ajax-table-panel').html(str).trigger('create');
 				//$('#all-tab').listview('refresh');
 				
@@ -105,7 +89,6 @@ function pageinit()
 			- ogni volta che il cameriere seleziona "make an order" legge dal file in locale i piatti disponibili, se esiste, altrimenti significa che è la prima volta che apre l'app quindi scarica dal DB;
 			- Il DB contiene la lista dei piatti e l'attributo booleano "today" indica se quel piatto è presente nel menù del giorno.
 		*/
-		$('#main-panel').panel('close');
 		$('#replaceable').empty();
 		$('#ajax-table-panel').empty();
 		$('#replaceable').html($('#new-orders').html());
@@ -154,9 +137,8 @@ function pageinit()
 				menu = $.parseJSON(localStorage.getItem(dataString));
 				var str = "";
 				//for each object we save some property and we display it
-				$.each(menu, function() {
-					str = str.concat("<div data-role='collapsible' name='food' id=" + this["foodId"] + " data-collapsed='true'><h3>" + this["foodName"] + "</h3><p>" + this["description"] + " <div data-role='fieldcontain'><input type='range' name='slider' value='0' min='0' max='10' data-highlight='true' /></div></p></div>");
-				});
+                str = prepareCollapsible(menu);
+				
 				$('#collapsible-order').empty();
 				$('#collapsible-order').append(str);
 				$('#collapsible-order').collapsibleset().trigger('create');
@@ -200,6 +182,14 @@ function pageinit()
 		}
 	}
     
+    function prepareCollapsible(menuListObject)
+    {
+        var str = "";
+        $.each(menuListObject, function() {
+            str = str.concat("<div data-role='collapsible' name='food' id=" + this["foodId"] + " data-collapsed='true'><h3>" + this["foodName"] + "</h3><p>" + this["description"] + "<div class='row'><div class='col-xs-offset-1 col-sm-offset-2 col-xs-3 col-sm-2'><a class='ui-btn clr-btn-indigo'><i class='zmdi zmdi-minus zmd-lg'></i></a></div><div class='col-xs-4' style='vertical-align:middle;margin-top:auto;margin-bottom:auto'><div style='text-align:center' name='quantity'>0</div></div><div class='col-xs-3 col-sm-2'><a class='ui-btn clr-btn-indigo'><i class='zmdi zmdi-plus zmd-lg'></i></a></div></div></p></div>");
+        });
+        return str;
+    }
 	function updateMenu() 
 	{
 		var menu, menuJSON;
@@ -220,9 +210,7 @@ function pageinit()
 				menu = $.parseJSON(localStorage.getItem(dataString));
 				var str = "";
 				//for each object we save some property and we display it
-				$.each(menu, function() {
-					str = str.concat("<div data-role='collapsible' name='food' id=" + this["foodId"] + " data-collapsed='true'><h3>" + this["foodName"] + "</h3><p>" + this["description"] + " <div data-role='fieldcontain'><input type='range' name='slider' min='0' max='10' data-highlight='true' /></div></p></div>");
-				});
+				str = prepareCollapsible(menu);
 				$('#collapsible-order').empty();
 				$('#collapsible-order').html(str);
 				$('#collapsible-order').collapsibleset().trigger('create');
@@ -247,7 +235,7 @@ function pageinit()
 		order.waitressId = localStorage.getItem("loggedUserId");
 
 		$.each($('[name="food"]'), function(){
-			var food_quantity = $(this).find('[name="slider"]').val();
+			var food_quantity = $(this).find('[name="quantity"]').html();
 			var food_id = $(this).attr("id");
 			//send only plates with at least 1 quantity
 			if(food_quantity != 0)
@@ -292,7 +280,14 @@ function pageinit()
 	}
 	
     //PANEL BUTTON -> Register a new table
-	$('#new-table').click(newTable);
+	$('#new-table').click(newTableTriggerMenu);
+    
+    function newTableTriggerMenu()
+    {
+        //Closing bottom sheet
+        $('#menu-button').trigger('click');
+        newTable();
+    }
     
 	function newTable()
 	{	
@@ -348,8 +343,6 @@ function pageinit()
 			});
 			return false;
 		});
-        //Closing the left panel
-		$('#main-panel').panel('close');
 		
 		//Avoid default action for 'click' event
 		return false;
@@ -369,7 +362,7 @@ function pageinit()
         $('#server-url').attr("value", server_ip);
 		$('#replaceable').trigger('create');
         //Closing the left panel
-		$('#main-panel').panel('close');
+		$('#menu-button').trigger('click');
         
         // SETTINGS PAGE -> Save Changes
         $('#save-settings').click(function(){
@@ -395,7 +388,6 @@ function pageinit()
 	{
         // The id is made up of two id's splitted by '&': foodId&orderId
 		var id = $(event.target).attr("id").split('&');
-		
 		$.ajax({
 			type: 'POST',
 			url: SERVER_IP + "/myLuisella-server/deleteOrder.php",
@@ -441,7 +433,7 @@ function pageinit()
 				{
 					//No orders
 					$('#ajax-open-table').empty();
-					$('#collapsible-order-content').html('<h3 style="text-align:center">We found NO orders.</h3>');
+					$('#orders-found').html('<h3 style="text-align:center">We found NO orders.</h3>');
 				}
 				else
 				{
@@ -449,11 +441,12 @@ function pageinit()
                     //We parse JSON from findOrders.php to display it in a listview
                     var plates = $.parseJSON(data);
                     $('#ajax-open-table').empty();
-                    var str = "<h3 style='text-align:center'>Orders found:</h3>";
+                    $('#orders-found').html("<h3 style='text-align:center'>Orders found:</h3>");
+                    var str = "";
 					
                     for(var i = 0; i < plates.length; i++)
 						for(var j = 0; j < plates[i]["foodIds"].length; j++)
-							str = str.concat("<div data-role='collapsible' name='plates' data-collapsed='true'><h3>" + plates[i]["quantities"][j] + " | " + plates[i]["foodNames"][j] + "</h3><p><button tableid='" + t_id + "' id=" + plates[i]["foodIds"][j] + "&" + plates[i]["orderId"] + " name='delete-plate' data-icon='flat-cross' data-theme='d'>Delete order</button></p></div>");
+							str = str.concat("<div data-role='collapsible' name='plates' data-collapsed='true'><h3>" + plates[i]["quantities"][j] + " | " + plates[i]["foodNames"][j] + "</h3><p><button tableid='" + t_id + "' id=" + plates[i]["foodIds"][j] + "&" + plates[i]["orderId"] + " class='clr-btn-red' name='delete-plate'>Delete order</button></p></div>");
 					
 					$('#collapsible-order-content').empty();
 					$('#collapsible-order-content').html(str);
