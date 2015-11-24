@@ -6,7 +6,7 @@ $(document).ready(function(){
         mozSystem: true
       }
     });
-    document.getElementById("server_url_text").value = $.parseJSON(localStorage.getItem("SERVER_IP"));
+    document.getElementById("server_url_text").value = SERVER_IP;
 });
 
 function login()
