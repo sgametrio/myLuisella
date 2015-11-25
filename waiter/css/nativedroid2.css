@@ -214,10 +214,15 @@ code {
 .ui-collapsible.ui-collapsible {
 	background-color: #f6f6f6;
 }
+
 .ui-collapsible.ui-collapsible h3 a,
 .ui-collapsible.ui-collapsible-collapsed.ui-collapsible h3 a:hover {
 	font-weight: 500;
 	background-color: rgba(0,0,0,0.1);
+}
+
+.clr-white.ui-collapsible.ui-collapsible-collapsed.ui-collapsible h3 a:hover {
+    color: #ffffff;
 }
 
 .ui-panel-dismiss {
