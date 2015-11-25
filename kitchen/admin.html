@@ -36,32 +36,6 @@
 		<!-- Main -->
 		<div class="container" style="padding-left:5%;padding-right:5%;margin-top:60px">
 			<div>	
-				<h2 class='page-header'>Add a new ingredient </h2>
-				<form class='form-horizontal' id='new-ingredient-form' method='post'>
-				  <fieldset>
-					<div class='form-group' >
-						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Ingredient name:</label>
-						<div class='col-sm-6 col-lg-5' class='validateForm'>
-							<input type='text' id='ingredient-name' class='form-control' name='ingredientName' placeholder='Insert ingredient name'>
-						</div>
-					</div>
-					<div class='form-group'>
-						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Allergen (optional)</label>
-						<div class='col-sm-6 col-lg-5'>
-							<input type='text' id='allergen' class='form-control' name='allergen' placeholder='Enter the abbreviation of the allergen'>
-						</div>
-					</div>
-					<div class='form-group'>
-						<div class='col-sm-3 col-lg-3 col-sm-offset-4'>
-							<input type='button' id="submit-button-ingredient" class='btn btn-info' value='Add ingredient'>
-						</div>
-					</div>
-					<div class="alert alert-danger col-sm-6 col-lg-6 col-sm-offset-3" hidden id="ajax-panel-ingredient" role="alert"></div>
-				  </fieldset>
-				</form>
-			</div>
-			
-			<div>	
 				<h2 class='page-header'>Add a new plate</h2>
 				<form class='form-horizontal' id='new-plate-form' method='post'>
 				  <fieldset>
@@ -96,40 +70,6 @@
 						</div>
 					</div>
 					<div class="alert alert-danger col-sm-6 col-lg-6 col-sm-offset-3" hidden id="ajax-panel-plate" role="alert"></div>
-				  </fieldset>
-				</form>
-			</div>
-			
-			<div>	
-				<h2 class='page-header'>Link plate with ingredients</h2>
-				<form class='form-horizontal' id='new-ingredient-form' method='post'>
-				  <fieldset>
-					<div class='form-group' >
-						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Select plate</label>
-						<div class='col-sm-6 col-lg-5' class='validateForm'>
-							<select id='plate-list' class='form-control'>
-							</select>
-						</div>
-					</div>
-					<div class='form-group'>
-						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Select ingredient</label>
-						<div class='col-sm-6 col-lg-5'>
-							<select id='ingredient-list' class='form-control'>
-							</select>
-						</div>
-					</div>
-					<div class='form-group'>
-						<label class='col-sm-3 col-lg-3 col-sm-offset-1 control-label'>Quantity (grams/millilitres)</label>
-						<div class='col-sm-6 col-lg-5'>
-							<input type='number' id='quantity' class='form-control' placeholder='Enter the quantity for the specified ingredient'>
-						</div>
-					</div>
-					<div class='form-group'>
-						<div class='col-sm-3 col-lg-3 col-sm-offset-4'>
-							<input type='button' id="link" class='btn btn-info' value='Link!'>
-						</div>
-					</div>
-					<div class="alert alert-danger col-sm-6 col-lg-6 col-sm-offset-3" hidden id="ajax-panel-list" role="alert"></div>
 				  </fieldset>
 				</form>
 			</div>

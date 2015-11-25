@@ -1,50 +1,10 @@
 $(document).ready(function(){
 	//If true that mean we are on mobile and not on localhost.
 	var DEBUG_MOBILE = true;
-	var SERVER_IP = "https://192.168.0.200";
+	var SERVER_IP = "https://192.168.1.200";
 
 	if(!DEBUG_MOBILE)
 		SERVER_IP = "http://localhost";
-		
-	//Handle click event on submit so the data are sent via AJAX to the PHP's page which save them into DB.
-	$('#submit-button-ingredient').click( function(){
-		$('#ajax-panel-ingredient').empty();
-		var ingredient_name = document.getElementById('ingredient-name').value;
-		var allergen = document.getElementById('allergen').value;
-		if(ingredient_name == "")
-		{
-			$('#ajax-panel-ingredient').append('<strong>Oops!</strong> Check what you wrote.');
-			$('#ajax-panel-ingredient').show();
-			return false;
-		}
-		$.ajax({
-			type: 'POST',
-			url: SERVER_IP + "/myLuisella-server/insertIngredient.php",
-			data: { allergen: allergen, ingredientName: ingredient_name },
-			success:function(data){
-				if(data == "Good")
-				{
-					$('#ajax-panel-ingredient').empty();
-					$('#ajax-panel-ingredient').html('New ingredient inserted. <strong>Congrats!</strong>');
-					$('#ajax-panel-ingredient').show();
-				}
-				else
-				{
-					$('#ajax-panel-ingredient').empty();
-					$('#ajax-panel-ingredient').html(data.toString());
-					$('#ajax-panel-ingredient').show();
-				}
-			},
-			error:function(){
-				// failed request; give feedback to user
-				$('#ajax-panel-ingredient').empty();
-				$('#ajax-panel-ingredient').html('<strong>Oops!</strong> Connection error.');
-				$('#ajax-panel-ingredient').show();
-			}
-		});
-		
-		return false;
-	});	
     
 	//AJAX -> retrieve categories list
     $.ajax({
@@ -111,40 +71,6 @@ $(document).ready(function(){
 		}
 		
 	});
-	
-	//AJAX -> retrieve plates list
-    $.ajax({
-		type: 'POST',
-		url: SERVER_IP + "/myLuisella-server/retrieveIngredientsList.php",
-		success: function(data){
-			if(data != 0)
-			{
-				var plates = $.parseJSON(data);
-				var str = "";
-				$.each(plates, function(){
-					str = str.concat("<option value='" + this["ingredientId"] + "'>" + this["ingredientName"] + "</option>");
-				});
-				$('#ajax-panel-list').empty();
-				$('#ingredient-list').empty();
-				$('#ingredient-list').html(str);
-				$('#ajax-panel-list').hide();
-			}
-			else
-			{
-				$('#ajax-panel-list').empty();
-				$('#ajax-panel-list').html(data.toString());
-				$('#ajax-panel-list').show();
-			}
-		},
-		error:function(){
-			//failed request; give feedback to user
-			$('#ajax-panel-list').empty();
-			$('#ajax-panel-list').html('<strong>Oops!</strong> Connection error.');
-			$('#ajax-panel-list').show();
-		}
-		
-	});
-	
 	
 	//Handle click event on submit so the data are sent via AJAX to the PHP's page which save them into DB.
 	$('#submit-button-plate').click(function(){
