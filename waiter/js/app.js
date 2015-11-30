@@ -12,6 +12,30 @@ function pageinit()
       }
     });
 	
+    //Receive waitress ID from localStorage
+    var waitress_id = JSON.parse(localStorage.getItem("loggedUserId"));
+    
+    /* POLLING FOR NOTIFICATIONS EVERY X SECONDS THROUGH AJAX */
+    pollingNotifications(5);
+    
+    function pollingNotifications(seconds)
+    {
+        //request alerts feed
+        $.ajax({
+            type: 'GET',
+            url: SERVER_IP + "/myLuisella-server/alertsFeed.php",
+            data: { waitressId: waitress_id },
+            success: function(data) {
+                //to be implemented server-side
+                //$('#alerts-feed').html
+            },
+            error: function(data) {
+                $('#alerts-feed').html("Error retrieving notification from local server.");
+            }
+        });
+        setTimeout(pollingNotifications, seconds * 1000, seconds);
+    }
+    
     /*
 	//Don't know if this tags are useful for FirefoxOS
 	$.mobile.allowCrossDomainPages = true;
