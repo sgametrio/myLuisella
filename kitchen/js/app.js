@@ -1,11 +1,4 @@
 $(document).ready(function(){
-	//If true that mean we are on mobile and not on localhost.
-	var DEBUG_MOBILE = true;
-	var SERVER_IP = "https://192.168.1.200";
-
-	if(!DEBUG_MOBILE)
-		SERVER_IP = "http://localhost";
-		
 	//Refresh button
 	$('#all-tables-and-orders').click(all_tables);
 	
