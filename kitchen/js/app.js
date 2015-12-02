@@ -1,9 +1,9 @@
 $(document).ready(function(){
 	//Refresh button
 	$('#all-tables-and-orders').click(all_tables);
-	
-	function all_tables(){
-	
+
+	function all_tables()
+	{
 		$.ajax({
 			type: 'GET',
 			url: SERVER_IP + "/myLuisella-server/tablesAndOrders.php",
@@ -49,7 +49,7 @@ $(document).ready(function(){
 						$(str).appendTo('#tables-col-' + column);
 					}
 				}
-				
+
 			},
 			error:function(){
 				// failed request; give feedback to user
@@ -57,13 +57,13 @@ $(document).ready(function(){
 			}
 		});
 	}
-	
-	function markPlateAsDone(table_id, foodId, orderId, modal)
+
+	function markPlate(table_id, foodId, orderId, modal, plate_code)
 	{
 		$.ajax({
 			type: 'POST',
-			url: SERVER_IP + "/myLuisella-server/markPlateAsDone.php",
-			data: { foodId: foodId, orderId: orderId },
+			url: SERVER_IP + "/myLuisella-server/markPlate.php",
+			data: { foodId: foodId, orderId: orderId , status: plate_code},
 			success: function(data){
 				if(data == 0)
 				{
@@ -80,7 +80,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-	
+
 	$('#mark-as-done').modal({
 		show: false
 	}).on('show.bs.modal', function(event){
@@ -90,21 +90,32 @@ $(document).ready(function(){
 		var table_id = $(event.relatedTarget).data('table');
 		var modal = $(this);
         //make your ajax call populate items or what even you need
-        modal.find('#modal-body').html($('<b> Order selected: ' + quantity + ' ' + foodName  + '</b>'))
+        modal.find('#modal-body').html($('<b> Order selected: ' + quantity + ' ' + foodName  + '</b>'));
 		$('#mark-button').click(function(){
 			//splitting id into foodId and orderId
 			var ids = getIdFromRow.split('&');
 			//ids[0] -> foodId | ids[1] -> orderId
 			var foodId = ids[0];
 			var orderId = ids[1];
-			markPlateAsDone(table_id, foodId, orderId, modal);
+			var done_code = 1;
+			markPlate(table_id, foodId, orderId, modal, done_code);
+		});
+		$('#reject-button').click(function(){
+			//splitting id into foodId and orderId
+			var ids = getIdFromRow.split('&');
+			//ids[0] -> foodId | ids[1] -> orderId
+			var foodId = ids[0];
+			var orderId = ids[1];
+			var reject_code = 3;
+			markPlate(table_id, foodId, orderId, modal, reject_code);
 		});
 	});
-    
-	//Simulating #all-tables-and-orders click to view 
-	$('#all-tables-and-orders').trigger('click');
-	
-	
+
+	//Simulating #all-tables-and-orders click to view
+	$("#all-tables-and-orders").trigger("click");
+	setInterval(all_tables, 15000);
+
+
 	function refreshTableOrder(table_id)
 	{
 		$.ajax({
@@ -119,7 +130,7 @@ $(document).ready(function(){
 				{
 					var orders = $.parseJSON(data);
 				$('#' + table_id).empty();
-				
+
 				if(orders.length == 0)
 					str = "<div style='text-align:center'><strong>No orders found yet.</strong></div>";
 				else
@@ -138,14 +149,9 @@ $(document).ready(function(){
 						}
 					}
 				}
-				
+
 				$('#' + table_id).html(str);
-			},
-			error:function(){
 			}
 		});
 	}
-	
-	setInterval(all_tables, 15000);
 });
-
