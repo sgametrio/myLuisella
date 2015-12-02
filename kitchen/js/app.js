@@ -1,4 +1,9 @@
 $(document).ready(function(){
+
+	var getIdFromRow = "";
+	var modal = {};
+	var table_id = "";
+
 	//Refresh button
 	$('#all-tables-and-orders').click(all_tables);
 
@@ -84,31 +89,34 @@ $(document).ready(function(){
 	$('#mark-as-done').modal({
 		show: false
 	}).on('show.bs.modal', function(event){
-		var getIdFromRow = $(event.relatedTarget).data('id');
+		getIdFromRow = $(event.relatedTarget).data('id');
 		var foodName = $(event.relatedTarget).data('food');
 		var quantity= $(event.relatedTarget).data('qty');
-		var table_id = $(event.relatedTarget).data('table');
-		var modal = $(this);
-        //make your ajax call populate items or what even you need
-        modal.find('#modal-body').html($('<b> Order selected: ' + quantity + ' ' + foodName  + '</b>'));
-		$('#mark-button').click(function(){
-			//splitting id into foodId and orderId
-			var ids = getIdFromRow.split('&');
-			//ids[0] -> foodId | ids[1] -> orderId
-			var foodId = ids[0];
-			var orderId = ids[1];
-			var done_code = 1;
-			markPlate(table_id, foodId, orderId, modal, done_code);
-		});
-		$('#reject-button').click(function(){
-			//splitting id into foodId and orderId
-			var ids = getIdFromRow.split('&');
-			//ids[0] -> foodId | ids[1] -> orderId
-			var foodId = ids[0];
-			var orderId = ids[1];
-			var reject_code = 3;
-			markPlate(table_id, foodId, orderId, modal, reject_code);
-		});
+		table_id = $(event.relatedTarget).data('table');
+		modal = $(this);
+		//make your ajax call populate items or what even you need
+		modal.find('#modal-body').html($('<b> Order selected: ' + quantity + ' ' + foodName  + '</b>'));
+	});
+
+
+	$('#mark-button').click(function(){
+		//splitting id into foodId and orderId
+		var ids = getIdFromRow.split('&');
+		//ids[0] -> foodId | ids[1] -> orderId
+		var foodId = ids[0];
+		var orderId = ids[1];
+		var done_code = 0;
+		markPlate(table_id, foodId, orderId, modal, done_code);
+	});
+
+	$('#reject-button').click(function(){
+		//splitting id into foodId and orderId
+		var ids = getIdFromRow.split('&');
+		//ids[0] -> foodId | ids[1] -> orderId
+		var foodId = ids[0];
+		var orderId = ids[1];
+		var reject_code = 3;
+		markPlate(table_id, foodId, orderId, modal, reject_code);
 	});
 
 	//Simulating #all-tables-and-orders click to view
@@ -129,27 +137,25 @@ $(document).ready(function(){
 				else
 				{
 					var orders = $.parseJSON(data);
-				$('#' + table_id).empty();
+					$('#' + table_id).empty();
 
-				if(orders.length == 0)
-					str = "<div style='text-align:center'><strong>No orders found yet.</strong></div>";
-				else
-					str = str.concat("<tr><th class='col-md-9 col-sm-9 col-xs-9'>Plate name</th><th class='col-md-1 col-sm-1 col-xs-1'></th><th class='col-md-2 col-sm-2 col-xs-2'>Q.ty</th></tr>");
-					for(var j = 0; j < orders.length; j++)
-					{
-						for(var k = 0; k < orders[j]["foodIds"].length; k++)
+					if(orders.length == 0)
+						str = "<div style='text-align:center'><strong>No orders found yet.</strong></div>";
+					else
+						for(var j = 0; j < orders.length; j++)
 						{
-							str = str.concat("<tr data-toggle='modal' data-food='" + orders[j]["foodNames"][k] + "' data-qty='" + orders[j]["quantities"][k] + "' data-table='" + table_id + "' data-id='" + orders[j]["foodIds"][k] + "&" + orders[j]["orderId"] + "' data-target='#mark-as-done'><td class='col-md-9 col-sm-9 col-xs-9'>" + orders[j]["foodNames"][k] + "</td>");
-							if(orders[j]["extraInfos"][k] != null)
-								str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'>X</td>");
-							else
-								str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'></td>");
-							str = str.concat("<td class='col-md-2 col-sm-2 col-xs-2'>" + orders[j]["quantities"][k] + "</td>");
-							str = str.concat("</tr>");
+							for(var k = 0; k < orders[j]["foodIds"].length; k++)
+							{
+								str = str.concat("<tr data-toggle='modal' data-food='" + orders[j]["foodNames"][k] + "' data-qty='" + orders[j]["quantities"][k] + "' data-table='" + table_id + "' data-id='" + orders[j]["foodIds"][k] + "&" + orders[j]["orderId"] + "' data-target='#mark-as-done'><td class='col-md-9 col-sm-9 col-xs-9'>" + orders[j]["foodNames"][k] + "</td>");
+								if(orders[j]["extraInfos"][k] != null)
+									str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'>X</td>");
+								else
+									str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'></td>");
+								str = str.concat("<td class='col-md-2 col-sm-2 col-xs-2'>" + orders[j]["quantities"][k] + "</td>");
+								str = str.concat("</tr>");
+							}
 						}
-					}
 				}
-
 				$('#' + table_id).html(str);
 			}
 		});
