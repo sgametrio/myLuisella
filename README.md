@@ -12,10 +12,3 @@ Always clone the latest tag version and not the master branch to be sure to down
 ### Licensing
 The project is licensed under APACHE v2.0 terms and agreements:
 http://www.apache.org/licenses/LICENSE-2.0
-
-### To-do
-- Deleting useless php pages about ingredients
-- Updating kitchen app to not show rejected plates and to have the possibility to reject plates
-- PHP page alertsFood.php
-
-- Fixing issues ^^.
