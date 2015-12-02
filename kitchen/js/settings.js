@@ -3,7 +3,7 @@ $(document).ready(function(){
    $('#server-ip').val(SERVER_IP);
    $('#submit-settings').click(function(){
       SERVER_IP = $('#server-ip').val();
-      localStorage.setItem("SERVER_IP", SERVER_IP);
+      localStorage.setItem("SERVER_IP", JSON.stringify(new Object(SERVER_IP)));
       $('#ajax-panel-success').show();
       //Hiding success panel after 10 seconds
       setTimeout(function(){
