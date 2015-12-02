@@ -1,0 +1,5 @@
+.panel-group-lists .panel-title a:active,
+.panel-group-lists .panel-title a:focus,
+.panel-group-lists .panel-title a:hover {
+   color: #ffffff;
+}
