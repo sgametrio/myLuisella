@@ -30,11 +30,11 @@ $(document).ready(function(){
 						var n_order = tables[i]["order"].length;
 						if(n_order == 0)
 						{
-							str = str.concat("<div class='panel panel-info'><div style='text-align:center' class='panel-heading'><div style='float:left'>#" + tables[i]["tableNumber"] + "</div>" + tables[i]["tableName"] + "</div><div class='panel-body'><p id='" + tables[i]["tableId"] + "' style='text-align:center'><strong>No orders found yet.</strong></p></div></div>");
+							str = str.concat("<div class='panel panel-info'><div style='text-align:center' class='panel-heading'><div style='float:left'>#" + tables[i]["tableNumber"] + "</div>" + tables[i]["tableName"] + "</div><div class='panel-body' id='" + tables[i]["tableId"] + "'><p  style='text-align:center'><strong>No orders found yet.</strong></p></div></div>");
 						}
 						else
 						{
-							str = str.concat("<div class='panel panel-info'><div style='text-align:center' class='panel-heading'><div style='float:left'>#" + tables[i]["tableNumber"] + "</div>" + tables[i]["tableName"] + "</div><div class='panel-body'><p><table id='" + tables[i]["tableId"] + "' class='table table-condensed table-striped'>");
+							str = str.concat("<div class='panel panel-info'><div style='text-align:center' class='panel-heading'><div style='float:left'>#" + tables[i]["tableNumber"] + "</div>" + tables[i]["tableName"] + "</div><div class='panel-body' id='" + tables[i]["tableId"] + "'><p><table class='table table-condensed table-striped'>");
 							for(var j = 0; j < n_order; j++)
 							{
 								for(var k = 0; k < tables[i]["order"][j]["foodIds"].length; k++)
@@ -129,19 +129,20 @@ $(document).ready(function(){
 		$.ajax({
 			type: 'POST',
 			url: SERVER_IP + "/myLuisella-server/findOrders.php",
-			data: { tableId: table_id, toMake: "1" },
+			data: { tableId: table_id },
 			success:function(data) {
 				var str = "";
+				$('#' + table_id).empty();
 				if(data == 0)
-					str = "<div style='text-align:center'><strong>No orders found yet.</strong></div>";
+					str = "<p style='text-align:center'><strong>No orders found yet.</strong><p>";
 				else
 				{
 					var orders = $.parseJSON(data);
-					$('#' + table_id).empty();
-
 					if(orders.length == 0)
-						str = "<div style='text-align:center'><strong>No orders found yet.</strong></div>";
+						str = "<p style='text-align:center'><strong>No orders found yet.</strong><p>";
 					else
+					{
+						str = "<p><table class='table table-condensed table-striped'>";
 						for(var j = 0; j < orders.length; j++)
 						{
 							for(var k = 0; k < orders[j]["foodIds"].length; k++)
@@ -155,6 +156,9 @@ $(document).ready(function(){
 								str = str.concat("</tr>");
 							}
 						}
+						str = str.concat("</table></p>");
+					}
+
 				}
 				$('#' + table_id).html(str);
 			}
