@@ -39,7 +39,12 @@ $(document).ready(function(){
 							{
 								for(var k = 0; k < tables[i]["order"][j]["foodIds"].length; k++)
 								{
-									str = str.concat("<tr data-toggle='modal' data-food='" + tables[i]["order"][j]["foodNames"][k] + "' data-qty='" + tables[i]["order"][j]["quantities"][k] + "' data-table='" + tables[i]["tableId"] + "' data-id='" + tables[i]["order"][j]["foodIds"][k] + "&" + tables[i]["order"][j]["orderId"] + "' data-target='#mark-as-done'><td class='col-md-9 col-sm-9 col-xs-9'>" + tables[i]["order"][j]["foodNames"][k] + "</td>");
+									str = str.concat("<tr data-toggle='modal' data-food='" + tables[i]["order"][j]["foodNames"][k] + "' data-qty='" + tables[i]["order"][j]["quantities"][k] + "' data-table='" + tables[i]["tableId"] + "' data-id='" + tables[i]["order"][j]["foodIds"][k] + "&" + tables[i]["order"][j]["orderId"]);
+                           if(tables[i]["order"][j]["status"][k] == 1)
+                              str = str.concat("' style='background-color:#FFF59D' data-target='#mark-as-done'");
+                           else
+                              str = str.concat("' data-target='#confirm-modal'");
+                           str = str.concat("><td class='col-md-9 col-sm-9 col-xs-9'>" + tables[i]["order"][j]["foodNames"][k] + "</td>");
 									if(tables[i]["order"][j]["extraInfos"][k] != null)
 										str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'>X</td>");
 									else
@@ -98,6 +103,18 @@ $(document).ready(function(){
 		modal.find('#modal-body').html($('<b> Order selected: ' + quantity + ' ' + foodName  + '</b>'));
 	});
 
+   $('#confirm-modal').modal({
+		show: false
+	}).on('show.bs.modal', function(event){
+		getIdFromRow = $(event.relatedTarget).data('id');
+		var foodName = $(event.relatedTarget).data('food');
+		var quantity= $(event.relatedTarget).data('qty');
+		table_id = $(event.relatedTarget).data('table');
+		modal = $(this);
+		//make your ajax call populate items or what even you need
+		modal.find('#modal-body').html($('<b> Order selected: ' + quantity + ' ' + foodName  + '</b>'));
+	});
+
 
 	$('#mark-button').click(function(){
 		//splitting id into foodId and orderId
@@ -107,6 +124,16 @@ $(document).ready(function(){
 		var orderId = ids[1];
 		var done_code = 0;
 		markPlate(table_id, foodId, orderId, modal, done_code);
+	});
+
+   $('#confirm-button').click(function(){
+		//splitting id into foodId and orderId
+		var ids = getIdFromRow.split('&');
+		//ids[0] -> foodId | ids[1] -> orderId
+		var foodId = ids[0];
+		var orderId = ids[1];
+		var confirm_code = 1;
+		markPlate(table_id, foodId, orderId, modal, confirm_code);
 	});
 
 	$('#reject-button').click(function(){
@@ -121,7 +148,7 @@ $(document).ready(function(){
 
 	//Simulating #all-tables-and-orders click to view
 	$("#all-tables-and-orders").trigger("click");
-	setInterval(all_tables, 15000);
+	//setInterval(all_tables, 15000);
 
 
 	function refreshTableOrder(table_id)
@@ -147,7 +174,12 @@ $(document).ready(function(){
 						{
 							for(var k = 0; k < orders[j]["foodIds"].length; k++)
 							{
-								str = str.concat("<tr data-toggle='modal' data-food='" + orders[j]["foodNames"][k] + "' data-qty='" + orders[j]["quantities"][k] + "' data-table='" + table_id + "' data-id='" + orders[j]["foodIds"][k] + "&" + orders[j]["orderId"] + "' data-target='#mark-as-done'><td class='col-md-9 col-sm-9 col-xs-9'>" + orders[j]["foodNames"][k] + "</td>");
+								str = str.concat("<tr data-toggle='modal' data-food='" + orders[j]["foodNames"][k] + "' data-qty='" + orders[j]["quantities"][k] + "' data-table='" + table_id + "' data-id='" + orders[j]["foodIds"][k] + "&" + orders[j]["orderId"]);
+                        if(orders[j]["status"][k] == 1)
+                           str = str.concat("' style='background-color:#FFF59D' data-target='#mark-as-done'");
+                        else
+                           str = str.concat("' data-target='#confirm-modal'");
+                        str = str.concat("><td class='col-md-9 col-sm-9 col-xs-9'>" + orders[j]["foodNames"][k] + "</td>");
 								if(orders[j]["extraInfos"][k] != null)
 									str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'>X</td>");
 								else
