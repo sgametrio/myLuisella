@@ -1,12 +1,14 @@
 $(document).ready(function(){
 
+   //preparing variables for a future use of different functions
    var getIdFromRow = "";
    var modal = {};
    var table_id = "";
 
-   //Refresh button
+   //Refresh button click handler
    $('#all-tables-and-orders').click(all_tables);
 
+   //retrieve tables list and orders table
    function all_tables()
    {
       $.ajax({
@@ -53,6 +55,7 @@ $(document).ready(function(){
       });
    }
 
+   //refresh single table orders
    function refreshTableOrder(table_id)
    {
       $.ajax({
@@ -76,13 +79,13 @@ $(document).ready(function(){
                   str = str.concat(createTableCode(orders, table_id));
                   str = str.concat("</table></p>");
                }
-
             }
             $('#' + table_id).html(str);
          }
       });
    }
 
+   //Dynamically add HTML code to the panel containing table orders
    function createTableCode(orders, tableId)
    {
       var str = "";
@@ -91,9 +94,9 @@ $(document).ready(function(){
          for(var k = 0; k < orders[j]["foodIds"].length; k++)
          {
             str = str.concat("<tr data-toggle='modal' data-food='" + orders[j]["foodNames"][k] + "' data-qty='" + orders[j]["quantities"][k] + "' data-table='" + tableId + "' data-id='" + orders[j]["foodIds"][k] + "&" + orders[j]["orderId"]);
-            if(orders[j]["status"][k] == 1)
+            if(orders[j]["status"][k] == 1) //plate already confirmed
                str = str.concat("' style='background-color:#FFF59D' data-target='#mark-as-done'");
-            else
+            else //plate to be confirmed
                str = str.concat("' data-target='#confirm-modal'");
             str = str.concat("><td class='col-md-9 col-sm-9 col-xs-9'>" + orders[j]["foodNames"][k] + "</td>");
             if(orders[j]["extraInfos"][k] != null)
@@ -107,6 +110,7 @@ $(document).ready(function(){
       return str;
    }
 
+   //Mark plate if done, confirmed or rejected. Creates an AJAX call to update values server-side
    function markPlate(table_id, foodId, orderId, modal, plate_code)
    {
       $.ajax({
@@ -117,6 +121,7 @@ $(document).ready(function(){
             if(data == 0)
             {
                modal.modal('hide');
+               //Everything went well, update orders now
                refreshTableOrder(table_id);
             }
             else

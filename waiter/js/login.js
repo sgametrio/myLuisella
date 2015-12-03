@@ -9,6 +9,7 @@ $(document).ready(function(){
     document.getElementById("server_url_text").value = SERVER_IP;
 });
 
+//function called on pressing login button on index.html
 function login()
 {
     var pw = document.getElementById('login_password').value;
@@ -17,7 +18,7 @@ function login()
     //function that converts into an md5 hash the password
     pass = md5(pw);
 
-
+    //verify credentials server side with an AJAX call
     $.ajax({
         type: 'POST',
         url: SERVER_IP + "/myLuisella-server/validateLogin.php",
@@ -25,14 +26,17 @@ function login()
         success: function(data){
             if(!isNaN(data))
             {
+               //Successful login. Go ahead on home.html and save some useful data about you
                window.location.assign("home.html");
                localStorage.setItem("loggedUser", user);
                localStorage.setItem("loggedUserId", data);
             }
             else if(data == "Bad")
-                $('#error').html('Check your credentials, <strong>please</strong>.');
+               //wrong credentials, failed authentication
+               $('#error').html('Check your credentials, <strong>please</strong>.');
             else
-                alert(data.toString());
+               //Something else went wrong on the server (maybe an exception?!)
+               alert(data.toString());
         },
         error: function(data){
             var error = 'Connection error. Retry later, please.<br/>';
@@ -42,6 +46,7 @@ function login()
     return false;
 }
 
+//function called on pressing signup button on index.html
 function signup()
 {
     var pw = document.getElementById('signup_password').value;
@@ -53,20 +58,22 @@ function signup()
     pass = md5(pw);
     admin_pass = md5(admin_pw);
 
+    //verify admin credentials server side with an AJAX call
     $.ajax({
         type: 'POST',
         url: SERVER_IP + "/myLuisella-server/createUser.php",
         data: {username: user, password: pass, admin: admin_pass},
         success: function(data){
             if(data == "Good")
-                window.location.assign("home.html");
+               //User created. Login with that credentials now.
+               window.location.assign("index.html");
             else if(data == "Bad")
-                $('#error-signup').html('Wrong admin password.');
+               $('#error-signup').html('Wrong admin password.');
             else
-                $('#error-signup').html(data.toString());
+               $('#error-signup').html(data.toString());
         },
         error: function(){
-            $('#error-signup').html('Retry later, <strong>please</strong>.');
+           $('#error-signup').html('Retry later, <strong>please</strong>.');
         }
     });
     return false;

@@ -1,3 +1,21 @@
+/*
+ * The main goal of this app is to offer a user-friendly interface to make waiter
+ * job easier.
+ * To get things done we use an interface based on user interaction with buttons, texts
+ * and so on.
+ * Every click of every button in the app calls a function handled in app.js.
+ * Most of the work is done using jQuery that handle events easily.
+ *
+ * Three typical actions done by these functions are:
+ *    * Send request through AJAX to the server
+ *    * Update HTML code of the main page by showing/hiding static content
+ *    * Dynamically update HTML code based on JSON retrieved from server
+ *
+ * Useful data like username, user id, server ip and todayMenu are saved on localStorage
+ * to be used across all pages and to not request them everytime from server
+ *
+ */
+
 $(document).on('pageinit', pageinit);
 
 function pageinit()
@@ -12,7 +30,7 @@ function pageinit()
       }
     });
 
-    //Receive waitress ID from localStorage
+    //Receive waitress ID from localStorage to use it later for some operations on the DB
     var waitress_id = JSON.parse(localStorage.getItem("loggedUserId"));
 
     /* POLLING FOR NOTIFICATIONS EVERY X SECONDS THROUGH AJAX */
