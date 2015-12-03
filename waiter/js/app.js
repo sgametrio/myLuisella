@@ -34,7 +34,7 @@ function pageinit()
     var waitress_id = JSON.parse(localStorage.getItem("loggedUserId"));
 
     /* POLLING FOR NOTIFICATIONS EVERY X SECONDS THROUGH AJAX */
-    pollingNotifications(5);
+    //pollingNotifications(5);
 
     function pollingNotifications(seconds)
     {
@@ -175,15 +175,19 @@ function pageinit()
          else
          {
             $('#menu-ajax').html("Today's menu retrieved from local storage.");
-            //Now localStorage item is set correctly and we are ready to read and display plates in a collapsible set or multiselect(?)
+            //Now localStorage item is set correctly and we are ready to read and display plates in a collapsible set
             menu = $.parseJSON(localStorage.getItem(dataString));
             var str = "";
             //for each object we save some property and we display it
-                str = prepareCollapsible(menu);
+            str = prepareCollapsible(menu);
 
             $('#collapsible-order').empty();
             $('#collapsible-order').append(str);
             $('#collapsible-order').collapsibleset().trigger('create');
+            //Action for adding/removing quantity
+            $('.add-button').click({ number: 1 }, modifyQuantity);
+            $('.sub-button').click({ number: -1 }, modifyQuantity);
+
          }
 
          var table = event.data.tableId;
@@ -224,14 +228,15 @@ function pageinit()
       }
    }
 
-    function prepareCollapsible(menuListObject)
-    {
-        var str = "";
-        $.each(menuListObject, function() {
-            str = str.concat("<div data-role='collapsible' name='food' id=" + this["foodId"] + " data-collapsed='true'><h3>" + this["foodName"] + "</h3><p>" + this["description"] + "<div class='row'><div class='col-xs-offset-1 col-sm-offset-2 col-xs-3 col-sm-2'><a class='ui-btn clr-btn-indigo'><i class='zmdi zmdi-minus zmd-lg'></i></a></div><div class='col-xs-4' style='vertical-align:middle;margin-top:auto;margin-bottom:auto'><div style='text-align:center' name='quantity'>0</div></div><div class='col-xs-3 col-sm-2'><a class='ui-btn clr-btn-indigo'><i class='zmdi zmdi-plus zmd-lg'></i></a></div></div></p></div>");
-        });
-        return str;
-    }
+   function prepareCollapsible(menuListObject)
+   {
+      var str = "";
+      $.each(menuListObject, function() {
+         str = str.concat("<div data-role='collapsible' name='food' id=" + this["foodId"] + " data-collapsed='true'><h3>" + this["foodName"] + "</h3><p>" + this["description"] + "<div class='row'><div class='col-xs-offset-1 col-sm-offset-2 col-xs-3 col-sm-2'><a class='ui-btn clr-btn-accent-indigo border-accent-indigo adjust-button-spacing sub-button' data-qty='" + this["foodId"] + "'><i class='zmdi zmdi-minus zmd-lg'></i></a></div><div class='col-xs-4' style='vertical-align:middle;margin-top:auto;margin-bottom:auto'><div style='text-align:center' name='quantity' id='qty" + this["foodId"] + "'>0</div></div><div class='col-xs-3 col-sm-2'><a class='ui-btn clr-btn-accent-indigo border-accent-indigo adjust-button-spacing add-button' data-qty='" + this["foodId"] + "'><i class='zmdi zmdi-plus zmd-lg'></i></a></div></div></p></div>");
+      });
+      return str;
+   }
+
    function updateMenu()
    {
       var menu, menuJSON;
@@ -256,6 +261,9 @@ function pageinit()
             $('#collapsible-order').empty();
             $('#collapsible-order').html(str);
             $('#collapsible-order').collapsibleset().trigger('create');
+            //Action for adding/removing quantity
+            $('.add-button').click({ number: 1 }, modifyQuantity);
+            $('.sub-button').click({ number: -1 }, modifyQuantity);
          },
          error: function() {
             $('#menu-ajax').html("Error retrieving menu from server. Please check your connection and refresh.");
@@ -263,6 +271,15 @@ function pageinit()
       });
    }
 
+   function modifyQuantity(event)
+   {
+      var food_quantity_id = $(event.currentTarget).attr('data-qty');
+      var number = event.data.number;
+      //converting to integer using unary operator +
+      var quantity_div = + $('#qty' + food_quantity_id).html();
+      if((number < 0 && quantity_div >= ((-1)*number)) || number > 0)
+         $('#qty' + food_quantity_id).html(quantity_div + number);
+   }
    function makeOrder()
    {
       var t_id = $('#tables-available').val();
@@ -281,9 +298,7 @@ function pageinit()
          var food_id = $(this).attr("id");
          //send only plates with at least 1 quantity
          if(food_quantity != 0)
-         {
             food.push({ foodId: food_id, quantity: food_quantity });
-         }
       });
       order.food = food;
       //Send order to server.
@@ -565,9 +580,7 @@ function pageinit()
 
          $.ajax({
             type: 'POST',
-                //TODO: send only modified parameters, not all. It is faster and lighter.
             url: SERVER_IP + "/myLuisella-server/modifyTable.php",
-
             data: { tableId: t_id, tableName: table_name, tableNumber: table_number, customers: table_customers },
             beforeSend:function(){
                // this is where we append a loading image
