@@ -35,25 +35,10 @@ $(document).ready(function(){
 						else
 						{
 							str = str.concat("<div class='panel panel-info'><div style='text-align:center' class='panel-heading'><div style='float:left'>#" + tables[i]["tableNumber"] + "</div>" + tables[i]["tableName"] + "</div><div class='panel-body' id='" + tables[i]["tableId"] + "'><p><table class='table table-condensed table-striped'>");
-							for(var j = 0; j < n_order; j++)
-							{
-								for(var k = 0; k < tables[i]["order"][j]["foodIds"].length; k++)
-								{
-									str = str.concat("<tr data-toggle='modal' data-food='" + tables[i]["order"][j]["foodNames"][k] + "' data-qty='" + tables[i]["order"][j]["quantities"][k] + "' data-table='" + tables[i]["tableId"] + "' data-id='" + tables[i]["order"][j]["foodIds"][k] + "&" + tables[i]["order"][j]["orderId"]);
-                           if(tables[i]["order"][j]["status"][k] == 1)
-                              str = str.concat("' style='background-color:#FFF59D' data-target='#mark-as-done'");
-                           else
-                              str = str.concat("' data-target='#confirm-modal'");
-                           str = str.concat("><td class='col-md-9 col-sm-9 col-xs-9'>" + tables[i]["order"][j]["foodNames"][k] + "</td>");
-									if(tables[i]["order"][j]["extraInfos"][k] != null)
-										str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'>X</td>");
-									else
-										str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'></td>");
-									str = str.concat("<td class='col-md-2 col-sm-2 col-xs-2'>" + tables[i]["order"][j]["quantities"][k] + "</td>");
-									str = str.concat("</tr>");
-								}
-							}
-							str = str.concat("</table></p></div></div>");
+
+                     //Make creation of dynamic HTML unique between two different function calls
+                     str = str.concat(createTableCode(tables[i]["order"], tables[i]["tableId"]));
+                     str = str.concat("</table></p></div></div>");
 						}
 						var column = ((i%3)+1);
 						$(str).appendTo('#tables-col-' + column);
@@ -67,6 +52,60 @@ $(document).ready(function(){
 			}
 		});
 	}
+   
+   function refreshTableOrder(table_id)
+	{
+		$.ajax({
+			type: 'POST',
+			url: SERVER_IP + "/myLuisella-server/findOrders.php",
+			data: { tableId: table_id },
+			success:function(data) {
+				var str = "";
+				$('#' + table_id).empty();
+				if(data == 0)
+					str = "<p style='text-align:center'><strong>No orders found yet.</strong><p>";
+				else
+				{
+					var orders = $.parseJSON(data);
+					if(orders.length == 0)
+						str = "<p style='text-align:center'><strong>No orders found yet.</strong><p>";
+					else
+					{
+						str = "<p><table class='table table-condensed table-striped'>";
+                  //Make creation of dynamic HTML unique between two different function calls
+                  str = str.concat(createTableCode(orders, table_id));
+						str = str.concat("</table></p>");
+					}
+
+				}
+				$('#' + table_id).html(str);
+			}
+		});
+	}
+
+   function createTableCode(orders, tableId)
+   {
+      var str = "";
+      for(var j = 0; j < orders.length; j++)
+      {
+         for(var k = 0; k < orders[j]["foodIds"].length; k++)
+         {
+            str = str.concat("<tr data-toggle='modal' data-food='" + orders[j]["foodNames"][k] + "' data-qty='" + orders[j]["quantities"][k] + "' data-table='" + tableId + "' data-id='" + orders[j]["foodIds"][k] + "&" + orders[j]["orderId"]);
+            if(orders[j]["status"][k] == 1)
+               str = str.concat("' style='background-color:#FFF59D' data-target='#mark-as-done'");
+            else
+               str = str.concat("' data-target='#confirm-modal'");
+            str = str.concat("><td class='col-md-9 col-sm-9 col-xs-9'>" + orders[j]["foodNames"][k] + "</td>");
+            if(orders[j]["extraInfos"][k] != null)
+               str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'>X</td>");
+            else
+               str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'></td>");
+            str = str.concat("<td class='col-md-2 col-sm-2 col-xs-2'>" + orders[j]["quantities"][k] + "</td>");
+            str = str.concat("</tr>");
+         }
+      }
+      return str;
+   }
 
 	function markPlate(table_id, foodId, orderId, modal, plate_code)
 	{
@@ -149,51 +188,4 @@ $(document).ready(function(){
 	//Simulating #all-tables-and-orders click to view
 	$("#all-tables-and-orders").trigger("click");
 	//setInterval(all_tables, 15000);
-
-
-	function refreshTableOrder(table_id)
-	{
-		$.ajax({
-			type: 'POST',
-			url: SERVER_IP + "/myLuisella-server/findOrders.php",
-			data: { tableId: table_id },
-			success:function(data) {
-				var str = "";
-				$('#' + table_id).empty();
-				if(data == 0)
-					str = "<p style='text-align:center'><strong>No orders found yet.</strong><p>";
-				else
-				{
-					var orders = $.parseJSON(data);
-					if(orders.length == 0)
-						str = "<p style='text-align:center'><strong>No orders found yet.</strong><p>";
-					else
-					{
-						str = "<p><table class='table table-condensed table-striped'>";
-						for(var j = 0; j < orders.length; j++)
-						{
-							for(var k = 0; k < orders[j]["foodIds"].length; k++)
-							{
-								str = str.concat("<tr data-toggle='modal' data-food='" + orders[j]["foodNames"][k] + "' data-qty='" + orders[j]["quantities"][k] + "' data-table='" + table_id + "' data-id='" + orders[j]["foodIds"][k] + "&" + orders[j]["orderId"]);
-                        if(orders[j]["status"][k] == 1)
-                           str = str.concat("' style='background-color:#FFF59D' data-target='#mark-as-done'");
-                        else
-                           str = str.concat("' data-target='#confirm-modal'");
-                        str = str.concat("><td class='col-md-9 col-sm-9 col-xs-9'>" + orders[j]["foodNames"][k] + "</td>");
-								if(orders[j]["extraInfos"][k] != null)
-									str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'>X</td>");
-								else
-									str = str.concat("<td class='col-md-1 col-sm-1 col-xs-1'></td>");
-								str = str.concat("<td class='col-md-2 col-sm-2 col-xs-2'>" + orders[j]["quantities"][k] + "</td>");
-								str = str.concat("</tr>");
-							}
-						}
-						str = str.concat("</table></p>");
-					}
-
-				}
-				$('#' + table_id).html(str);
-			}
-		});
-	}
 });
