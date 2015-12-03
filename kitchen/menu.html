@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-		<title>Bootstrap 3 Admin</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/bootflat.min.css" rel="stylesheet">
-		<link href="css/styles.css" rel="stylesheet">
-		<link href="css/custom.css" rel="stylesheet">
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <meta charset="utf-8">
+      <title>Bootstrap 3 Admin</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootflat.min.css" rel="stylesheet">
+      <link href="css/styles.css" rel="stylesheet">
+      <link href="css/custom.css" rel="stylesheet">
         <!-- script references -->
-		<script src="js/jquery-1.11.3.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+      <script src="js/jquery-1.11.3.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
         <script src="js/menu.js"></script>
         <script src="js/ipServer.js"></script>
-	</head>
-	<body>
-		<!-- header -->
-		<nav id="top-nav" class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html">Dashboard myLuisella kitchen</a>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
-							<ul id="g-account-menu" class="dropdown-menu" role="menu">
-								<li><a href="admin.html">Administrative tools</a></li>
-								<li><a href="menu.html">Change today menu</a></li>
-								<li><a href="settings.html">Settings</a></li>
-							</ul>
-						</li>
-						<li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /container -->
-		</nav>
-		<!-- /Header -->
+   </head>
+   <body>
+      <!-- header -->
+      <nav id="top-nav" class="navbar navbar-default navbar-fixed-top">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <a class="navbar-brand" href="index.html">Dashboard myLuisella kitchen</a>
+            </div>
+            <div class="navbar-collapse collapse">
+               <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
+                     <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                        <li><a href="admin.html">Administrative tools</a></li>
+                        <li><a href="menu.html">Change today menu</a></li>
+                        <li><a href="settings.html">Settings</a></li>
+                     </ul>
+                  </li>
+                  <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+               </ul>
+            </div>
+         </div>
+         <!-- /container -->
+      </nav>
+      <!-- /Header -->
 
-		<!-- Main -->
-		<div class="container" style="padding-left:5%;padding-right:5%;margin-top:60px">
-			<h2>Select plates for the menu of the day</h2>
-			<hr/>
-			<div class="row">
-				<div id="all-plates" class="col-lg-8 col-lg-offset-2 panel-group panel-group-lists" role="tablist" aria-multiselectable="true">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-offset-5 col-lg-2">
-					<input id="confirm-menu-button" type="button" class="btn btn-info" value="Confirm"></input>
-				</div>
-			</div>
-			<div id="ajax-panel-ingredient">
-			</div>
-		</div>
-		<!-- /Main -->
-	</body>
+      <!-- Main -->
+      <div class="container" style="padding-left:5%;padding-right:5%;margin-top:60px">
+         <h2>Select plates for the menu of the day</h2>
+         <hr/>
+         <div class="row">
+            <div id="all-plates" class="col-lg-8 col-lg-offset-2 panel-group panel-group-lists" role="tablist" aria-multiselectable="true">
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-lg-offset-5 col-lg-2">
+               <input id="confirm-menu-button" type="button" class="btn btn-info" value="Confirm"></input>
+            </div>
+         </div>
+         <div id="ajax-panel-ingredient">
+         </div>
+      </div>
+      <!-- /Main -->
+   </body>
 </html>

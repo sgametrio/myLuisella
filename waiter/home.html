@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>iLuisella - FlatUI</title>
-		<meta charset="utf-8"/>
+   <head>
+      <title>iLuisella - FlatUI</title>
+      <meta charset="utf-8"/>
         <!-- meta tag for installable web apps -->
         <meta name="theme-color" content="#007668">
         <!-- Chrome style - manifest.json -->
         <link rel="manifest" href="manifest.json">
-		<!-- For device specific -->
+      <!-- For device specific -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-		
-		<!-- Include flat-ui.css for jquery mobile 1.4.5 -->
-		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.min.css">
+
+      <!-- Include flat-ui.css for jquery mobile 1.4.5 -->
+      <link rel="stylesheet" type="text/css" href="css/jquery.mobile.min.css">
         <link rel="stylesheet" type="text/css" href="css/animate.min.css">
         <link rel="stylesheet" type="text/css" href="css/nativedroid2.css">
         <link rel="stylesheet" type="text/css" href="waves/waves.min.css">
-		<link rel="stylesheet" type="text/css" href="css/app.css">
+      <link rel="stylesheet" type="text/css" href="css/app.css">
 
-        
-		<!-- Include jquery-mobile 1.4.5 minified version -->
-		<script src="js/jquery.2.1.4.min.js"></script>
-		<script src="js/jquery-ui.min.js"></script>
+
+      <!-- Include jquery-mobile 1.4.5 minified version -->
+      <script src="js/jquery.2.1.4.min.js"></script>
+      <script src="js/jquery-ui.min.js"></script>
         <!-- Added to fix a Security Error on Chrome for Android -->
         <script>
             $(document).bind('mobileinit',function(){
@@ -29,31 +29,31 @@
                 $.mobile.pushStateEnabled = false;
             });
         </script>
-		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+      <script src="js/jquery.mobile-1.4.5.min.js"></script>
         <script src="waves/waves.min.js"></script>
-		<script src="js/nativedroid2.js"></script>
+      <script src="js/nativedroid2.js"></script>
         <script src="js/nd2settings.js"></script>
-        <script src="js/checkSessionHome.js"></script>		
-		<script src="js/app.js"></script>
+        <script src="js/checkSessionHome.js"></script>
+      <script src="js/app.js"></script>
         <script src="install.js"></script>
         <script src="js/ipServer.js"></script>
-		
-	</head>
-	<body class="clr-accent-yellow">
-	
-		<div id="main-page" data-role="page" class="nd2-no-menu-swipe">
-			
-			<!-- Header -->
-			<div data-role="header" data-position="fixed">
-				<a id="menu-button" href="#bottomsheetblock" class="ui-btn ui-btn-left"><i class="zmdi zmdi-menu"></i></a>
-				<h1 id="header-title">myLuisella</h1>
-				<a id="all-table" class="ui-btn ui-btn-right"><i class="zmdi zmdi-refresh"></i></a>
+
+   </head>
+   <body class="clr-accent-yellow">
+
+      <div id="main-page" data-role="page" class="nd2-no-menu-swipe">
+
+         <!-- Header -->
+         <div data-role="header" data-position="fixed">
+            <a id="menu-button" href="#bottomsheetblock" class="ui-btn ui-btn-left"><i class="zmdi zmdi-menu"></i></a>
+            <h1 id="header-title">myLuisella</h1>
+            <a id="all-table" class="ui-btn ui-btn-right"><i class="zmdi zmdi-refresh"></i></a>
                 <ul data-role="nd2tabs" data-swipe="true">
                     <li data-tab="custom" data-tab-active="true">Dynamic</li>
                     <li data-tab="alerts">Alerts</li>
                 </ul>
-			</div>
-		  
+         </div>
+
             <!-- Bottom panel -->
             <div data-role="panel" id="bottomsheetblock" class="ui-bottom-sheet" data-animate="false" data-position='bottom' data-display="overlay">
                 <div class='row around-xs'>
@@ -71,13 +71,13 @@
                     </div>
                 </div>
             </div>
-			
-            
-            
-            
-			<!-- Main content -->
-			<div data-role="content" id="main-content" role="main">
-				<div data-role="nd2tab" data-tab="custom">
+
+
+
+
+         <!-- Main content -->
+         <div data-role="content" id="main-content" role="main">
+            <div data-role="nd2tab" data-tab="custom">
                     <div id="replaceable"></div>
                     <div id="ajax-table-panel"></div>
                 </div>
@@ -85,30 +85,30 @@
                     <div id="alerts-feed">
                     </div>
                 </div>
-			</div>
-		</div>
-        
+         </div>
+      </div>
+
         <!--HIDE ALL-->
-        
+
         <div id="hideAll" data-role="page">
-            
+
             <!-- Static content / HOME PAGE -->
 
             <div id="home-div">
-				<h2 class="center">Welcome to myLuisella!</h2>
-				<hr/>
-				If you install myLuisella app navigation will be faster and smoother!<br/>
-				<button id="install">Install <strong>myLuisella</strong></button>
-				<div id="install-div"></div>
+            <h2 class="center">Welcome to myLuisella!</h2>
+            <hr/>
+            If you install myLuisella app navigation will be faster and smoother!<br/>
+            <button id="install">Install <strong>myLuisella</strong></button>
+            <div id="install-div"></div>
             </div>
-            
+
             <!-- Static content / SETTINGS -->
 
             <div id="settings-content">
-				<h2 class="center">Settings</h2>
-				<hr/>
-				Please be careful, because bad settings can break the app.<br/>
-				<div class="animated fadeIn" data-role="fieldcontain">
+            <h2 class="center">Settings</h2>
+            <hr/>
+            Please be careful, because bad settings can break the app.<br/>
+            <div class="animated fadeIn" data-role="fieldcontain">
                     <label for="server-url">Server URL (default is 'https://192.168.1.200'): </label>
                     <input id="server-url" type="text">
                 </div>
@@ -136,7 +136,7 @@
             </div>
 
             <!-- Static content / TABLE ORDERS -->
-            
+
             <div id="open-table-content">
                 <div style="text-align:center;width:100%;" id="ajax-open-table"></div>
                 <div class="clr-bg-deep-blue clr-white" data-role="collapsible-set" data-collapsed-icon="" data-expanded-icon="" class="no-margin-top">
@@ -157,21 +157,21 @@
                             </div>
                             <div style="text-align:center" id="ajax-modify-table"></div>
                             <button class="clr-btn-deep-blue form-element" id="modify-table">Apply changes</button>
-							<button class="clr-btn-red form-element" id="delete-table" data-icon="">Delete table</button>
+                     <button class="clr-btn-red form-element" id="delete-table" data-icon="">Delete table</button>
                         </p>
                     </div>
                 </div>
-				<div data-role="fieldcontain">
+            <div data-role="fieldcontain">
                     <div id="orders-found"></div>
-					<div class="clr-bg-green" class="animated bounceInDown" data-role="collapsible-set" id="collapsible-order-content">
+               <div class="clr-bg-green" class="animated bounceInDown" data-role="collapsible-set" id="collapsible-order-content">
 
-					</div>
-				</div>
-				<button class="clr-btn-red" id="make-order-from-tables">Make order</button>
-            </div>	
-			
+               </div>
+            </div>
+            <button class="clr-btn-red" id="make-order-from-tables">Make order</button>
+            </div>
+
             <!-- Static content / NEW ORDER -->
-        
+
             <div id="new-orders">
                 <h3 class="center">Select plates, quantity and table</h3>
                 <div class="center no-margin-top" data-role="fieldcontain">
@@ -180,7 +180,7 @@
                         <option selected value="">Select table:</option>
                     </select>
                 </div>
-                
+
                 <div data-role="fieldcontain">
                     <!-- All listed meals are below -->
                     <div class="clr-bg-green animated fadeIn" data-role="collapsible-set" id="collapsible-order">
@@ -193,7 +193,7 @@
                 <button class="clr-btn-deep-blue form-element" id="update-menu">Update menu</button>
             </div>
         </div>
-			
-		
-	</body>
+
+
+   </body>
 </html>

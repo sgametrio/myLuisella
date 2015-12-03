@@ -26,10 +26,10 @@ if('mozApps' in navigator) {
       if(installCheck.result) {
         $('#install-div').html("Installed!");
       } else {
-		
+
         $('#install-div').html("Not installed!");
       }
     };
 }
 else
-	$('#install-div').html("Not installable!");
+   $('#install-div').html("Not installable!");

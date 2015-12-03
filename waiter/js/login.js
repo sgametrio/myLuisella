@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	//mozSystem is needed beacuse the app without it can't do any crossdomain request
+   //mozSystem is needed beacuse the app without it can't do any crossdomain request
     //with ajaxSetup settings are saved for all future AJAX calls.
     $.ajaxSetup({
       xhrFields: {
@@ -14,9 +14,9 @@ function login()
     var pw = document.getElementById('login_password').value;
     var pass;
     var user = document.getElementById('login_username').value;
-    //function that converts into an md5 hash the password 
+    //function that converts into an md5 hash the password
     pass = md5(pw);
-    
+
 
     $.ajax({
         type: 'POST',
@@ -24,11 +24,11 @@ function login()
         data: {username: user, password: pass},
         success: function(data){
             if(!isNaN(data))
-				{
-					window.location.assign("home.html");
-					localStorage.setItem("loggedUser", user);
-					localStorage.setItem("loggedUserId", data);
-				}
+            {
+               window.location.assign("home.html");
+               localStorage.setItem("loggedUser", user);
+               localStorage.setItem("loggedUserId", data);
+            }
             else if(data == "Bad")
                 $('#error').html('Check your credentials, <strong>please</strong>.');
             else
@@ -41,7 +41,7 @@ function login()
     });
     return false;
 }
-    
+
 function signup()
 {
     var pw = document.getElementById('signup_password').value;
@@ -49,7 +49,7 @@ function signup()
     var admin_pw = document.getElementById('signup_admin').value;
     var admin_pass;
     var user = document.getElementById('signup_username').value;
-    //function that converts into an md5 hash the password 
+    //function that converts into an md5 hash the password
     pass = md5(pw);
     admin_pass = md5(admin_pw);
 

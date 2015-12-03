@@ -6,55 +6,55 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
+   <head>
+      <meta charset="utf-8">
         <!-- meta tag for installable web apps -->
         <meta name="theme-color" content="#1B2C34">
         <!-- Chrome style - manifest.json -->
         <link rel="manifest" href="manifest.json">
-		<link href="css/style.css" rel="stylesheet" type="text/css" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="js/jquery.2.1.4.min.js"></script>
-		<script src="js/md5.js"></script>
-		<script src="js/login.js"></script>
-		<script src="js/checkSessionIndex.js"></script>
+      <link href="css/style.css" rel="stylesheet" type="text/css" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="js/jquery.2.1.4.min.js"></script>
+      <script src="js/md5.js"></script>
+      <script src="js/login.js"></script>
+      <script src="js/checkSessionIndex.js"></script>
         <script src="js/ipServer.js"></script>
-		<script> 
-			window.addEventListener('load', function() {
-			  navigator.serviceWorker.register('service-worker.js', { scope: './' })
-				.then(function(r) {
-				  console.log('registered service worker');
-				})
-				.catch(function(whut) {
-				  console.error('uh oh... ');
-				  console.error(whut);
-				});
+      <script>
+         window.addEventListener('load', function() {
+           navigator.serviceWorker.register('service-worker.js', { scope: './' })
+            .then(function(r) {
+              console.log('registered service worker');
+            })
+            .catch(function(whut) {
+              console.error('uh oh... ');
+              console.error(whut);
+            });
 
-			});
-		</script>
-	</head>
-	 
-	<body>
-		<div class="main">
-		<!-----start-main---->
-			<h2>Log in for <a target="_blank" href="http://www.albergoristoranteluisella.com">myLuisella</a>:</h2>
-			<div class="inset">
-				<div class="lable-2">
-					<input id="login_username" type="text" class="text" value="username" onclick="this.value=''">
-					<input id="login_password" type="password" class="text" value="password" onclick="this.value=''">
-				</div>
-			</div>
-			<div class="clear"> </div>
-			<h3 style="text-align:center">Haven't an account yet? <span><a href="#signup">see below</a><span>.</h3>
-			<div class="submit">
-				<input type="button" onclick="login()" id="login" value="Log in" >
-			</div>
-			<h3 style="color:red;" id="error"></h3>
+         });
+      </script>
+   </head>
+
+   <body>
+      <div class="main">
+      <!-----start-main---->
+         <h2>Log in for <a target="_blank" href="http://www.albergoristoranteluisella.com">myLuisella</a>:</h2>
+         <div class="inset">
+            <div class="lable-2">
+               <input id="login_username" type="text" class="text" value="username" onclick="this.value=''">
+               <input id="login_password" type="password" class="text" value="password" onclick="this.value=''">
+            </div>
+         </div>
+         <div class="clear"> </div>
+         <h3 style="text-align:center">Haven't an account yet? <span><a href="#signup">see below</a><span>.</h3>
+         <div class="submit">
+            <input type="button" onclick="login()" id="login" value="Log in" >
+         </div>
+         <h3 style="color:red;" id="error"></h3>
             <div class="clear"> </div>
             <h3 style="text-align:center">Keep getting connection error? Maybe you are trying to connect to the wrong server. <span><a href="#serverurl">Change server URL</a><span>.</h3>
-			<br/><br/><br/><br/><br/><br/><br/>
-			<a name="signup"></a>
-			<h2>Sign up for <a target="_blank" href="http://www.albergoristoranteluisella.com">myLuisella</a>:</h2>
+         <br/><br/><br/><br/><br/><br/><br/>
+         <a name="signup"></a>
+         <h2>Sign up for <a target="_blank" href="http://www.albergoristoranteluisella.com">myLuisella</a>:</h2>
             <div class="inset">
                 <div class="lable-2">
                     <input id="signup_username" type="text" class="text" value="username" onclick="this.value=''">
@@ -63,15 +63,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input id="signup_admin" type="password" class="text" value="admin_password" onclick="this.value=''">
                 </div>
             </div>
-			<div class="clear"> </div>
-			<h3 style="text-align:center">By creating an account, you agree to our <span><a href="#">Terms & Conditions</a> <span></h3>
-			<div class="submit">
-				<input type="button" onclick="signup()" id="signup" value="Create account" >
-			</div>
-			<h3 style="text-align:center; color:red" id="error-signup"></h3>
-			<div class="clear"> </div>
+         <div class="clear"> </div>
+         <h3 style="text-align:center">By creating an account, you agree to our <span><a href="#">Terms & Conditions</a> <span></h3>
+         <div class="submit">
+            <input type="button" onclick="signup()" id="signup" value="Create account" >
+         </div>
+         <h3 style="text-align:center; color:red" id="error-signup"></h3>
+         <div class="clear"> </div>
             <a name="serverurl">
-                <h3 style="text-align:center; margin-top:10px">Server URL:</h3>    
+                <h3 style="text-align:center; margin-top:10px">Server URL:</h3>
             </a>
             <div class="inset">
                 <div class="lable-2">
@@ -79,17 +79,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
             <div class="submit">
-				<input type="button" onclick="changeServerUrl()" id="change_url" value="Change server URL">
-			</div>
+            <input type="button" onclick="changeServerUrl()" id="change_url" value="Change server URL">
+         </div>
             <div class="clear"> </div>
-		<!-----//end-main---->
-		</div>
-		<!-----start-copyright---->
-		<div class="copy-right">
-			<p>Template by <a href="http://w3layouts.com">w3layouts</a></p> 
-			<p>Modified by <a href="https://themetrio.github.io">themetrio</a></p>
-		</div>
-		<!-----//end-copyright---->
-			
-	</body>
+      <!-----//end-main---->
+      </div>
+      <!-----start-copyright---->
+      <div class="copy-right">
+         <p>Template by <a href="http://w3layouts.com">w3layouts</a></p>
+         <p>Modified by <a href="https://themetrio.github.io">themetrio</a></p>
+      </div>
+      <!-----//end-copyright---->
+
+   </body>
 </html>
