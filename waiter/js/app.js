@@ -528,6 +528,7 @@ function pageinit()
             if(data == "1")
             {
                //There is an internal error (bug)
+               $('#collapsible-order-content').empty();
                $('#ajax-open-table').empty();
                $('#ajax-open-table').html('Something internally has broken. <strong>Table not found.</strong>');
             }
@@ -535,6 +536,7 @@ function pageinit()
             {
                //No orders
                $('#ajax-open-table').empty();
+               $('#collapsible-order-content').empty();
                $('#orders-found').html('<h3 style="text-align:center">We found NO orders.</h3>');
             }
             else
