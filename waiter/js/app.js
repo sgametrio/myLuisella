@@ -29,7 +29,6 @@ function pageinit()
         mozSystem: true
       }
     });
-
     //Receive waitress ID from localStorage to use it later for some operations on the DB
     var waitress_id = JSON.parse(localStorage.getItem("loggedUserId"));
 
@@ -84,7 +83,7 @@ function pageinit()
             var str = "";
                 //Creating a listview header
             str = str.concat("<div style='overflow:hidden' data-role='fieldcontain'><ul class='clr-bg-deep-blue' id='all-tab' class='no-margin-top' data-role='listview' data-inset='true'><li data-role='list-divider'><div class='clr-white'>Registered tables</div></li>");
-                //For each object retrieved through AJAX and JSON it have to be created a line in the listview, having parameters as attributes for a future use.
+                //For each object retrieved through AJAX and JSON it has to be created a line in the listview, having parameters as attributes for a future use.
             $.each(obj, function() {
                str = str.concat("<li data-icon='info'><a class='no-radius table clr-btn-green' tablename='", this['tableName'], "' tablenumber='", this['tableNumber'], "' tablecustomers='", this['customers'], "' href='#' id='", this['tableId'], "'>", this['tableNumber'], " - ", this['tableName'], "</a></li>");
             //TODO badge with customers
@@ -99,8 +98,13 @@ function pageinit()
          },
          error:function(){
             // failed request; give feedback to user
-            $('#ajax-table-panel').empty();
-            $('#ajax-table-panel').html('<strong>Oops!</strong> Try that again in a few moments.');
+            $.snackbar({
+               content: "Check your connection, <strong>please</strong>.",
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
          }
       });
       //avoid default action for 'click' event
@@ -197,10 +201,6 @@ function pageinit()
             type: 'GET',
             url: SERVER_IP + "/myLuisella-server/tables.php",
             data: { tableId: table },
-            beforeSend:function(){
-               // this is where we append a loading image
-               $('#table-ajax').html('<div class="loading"><img src="css/images/ajax-loader.gif" alt="Loading..." /></div>');
-            },
             success:function(data){
                //We parse JSON from tables.php to display it in a select
                var obj = $.parseJSON(data);
@@ -222,7 +222,13 @@ function pageinit()
 
             },
             error: function(){
-               alert("Error retrieving tables' list from server, check your connection please.");
+               $.snackbar({
+                  content: "Error retrieving tables' list from server, check your connection, <strong>please</strong>.",
+                  //style: "toast", // add a custom class to your snackbar
+                  timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                  htmlAllowed: true, // allows HTML as content value
+                  //onClose: function(){ } // callback called when the snackbar gets closed.
+               });
             }
          });
       }
@@ -253,7 +259,13 @@ function pageinit()
          url: SERVER_IP + "/myLuisella-server/getTodayMenu.php",
          success: function(data) {
             localStorage.setItem(dataString, data);
-            $('#menu-ajax').html("Today's menu retrieved from server and saved to local storage.");
+            $.snackbar({
+               content: "Today's menu retrieved from server and saved to local storage",
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
             menu = $.parseJSON(localStorage.getItem(dataString));
             var str = "";
             //for each object we save some property and we display it
@@ -266,7 +278,13 @@ function pageinit()
             $('.sub-button').click({ number: -1 }, modifyQuantity);
          },
          error: function() {
-            $('#menu-ajax').html("Error retrieving menu from server. Please check your connection and refresh.");
+            $.snackbar({
+               content: "Error retrieving menu from server. Please check your connection and refresh",
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
          }
       });
    }
@@ -306,22 +324,23 @@ function pageinit()
          type: 'POST',
          url: SERVER_IP + "/myLuisella-server/makeOrder.php",
          data: { order: JSON.stringify(order)},
-         beforeSend:function() {
-            // this is where we append a loading image
-            $('#ajax-panel').html('<div class="loading"><img src="css/images/ajax-loader.gif" alt="Loading..." /></div>');
-         },
          success:function(data) {
             var dataObject = JSON.parse(data);
             if(dataObject.result == "Good")
             {
                $('#menu-ajax').empty();
-               $('#menu-ajax').html('Order sent.');
+               $.snackbar({
+                  content: "Order sent",
+                  //style: "toast", // add a custom class to your snackbar
+                  timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                  htmlAllowed: true, // allows HTML as content value
+                  //onClose: function(){ } // callback called when the snackbar gets closed.
+               });
                for(var i = 0; i < dataObject.response_error.length; i++)
                   $('#menu-ajax').append(dataObject.response_error[i].text);
             }
             else
             {
-
                $('#menu-ajax').empty();
                for(var i = 0; i < dataObject.response_error.length; i++)
                   $('#menu-ajax').append(dataObject.response_error[i].text);
@@ -329,8 +348,13 @@ function pageinit()
          },
          error:function() {
             // failed request; give feedback to user
-            $('#ajax-panel').empty();
-            $('#ajax-panel').html('<strong>Oops!</strong> Connection error.');
+            $.snackbar({
+               content: "<strong>Oops!</strong> Connection error.",
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
          }
       });
       return false;
@@ -349,7 +373,6 @@ function pageinit()
    function newTable()
    {
       $('#ajax-table-panel').empty();
-      $('#ajax-panel').empty();
       $('#replaceable').empty();
       //Replace the whole content with another div content
       $('#replaceable').html($('#new-table-content').html());
@@ -359,7 +382,6 @@ function pageinit()
          document.getElementById('table-name').value = "";
          document.getElementById('table-number').value = "";
          document.getElementById('customers').value = "";
-         $('#ajax-panel').empty();
          return false;
       });
         //Handle click event on submit so the data are sent via AJAX to the PHP's page which save them into DB.
@@ -369,33 +391,52 @@ function pageinit()
          var table_customers = document.getElementById('customers').value;
          if(table_name == "" || isNaN(table_number) || isNaN(table_customers) || table_number == "" || table_customers == "")
          {
-            $('#ajax-panel').html('<strong>Oops!</strong> Check what you wrote.');
+            $.snackbar({
+               content: "<strong>Oops!</strong> Check what you wrote.",
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
             return false;
          }
          $.ajax({
             type: 'POST',
             url: SERVER_IP + "/myLuisella-server/insertTable.php",
             data: { tableName: table_name, tableNumber: table_number, customers: table_customers },
-            beforeSend:function(){
-               // this is where we append a loading image
-               $('#ajax-panel').html('<div class="loading"><img src="css/images/ajax-loader.gif" alt="Loading..." /></div>');
-            },
             success:function(data){
                if(data == "Good")
                {
-                  $('#ajax-panel').empty();
-                  $('#ajax-panel').html('New table created. <strong>Congrats!</strong>');
+                  $.snackbar({
+                     content: "New table created. <strong>Congrats!</strong>",
+                     //style: "toast", // add a custom class to your snackbar
+                     timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                     htmlAllowed: true, // allows HTML as content value
+                     //onClose: function(){ } // callback called when the snackbar gets closed.
+                  });
+
                }
                else
                {
-                  $('#ajax-panel').empty();
-                  $('#ajax-panel').html(data.toString());
+                  var content = data.toString();
+                  $.snackbar({
+                     content: content,
+                     //style: "toast", // add a custom class to your snackbar
+                     timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                     htmlAllowed: true, // allows HTML as content value
+                     //onClose: function(){ } // callback called when the snackbar gets closed.
+                  });
                }
             },
             error:function(){
                // failed request; give feedback to user
-               $('#ajax-panel').empty();
-               $('#ajax-panel').html('<strong>Oops!</strong> Connection error.');
+               $.snackbar({
+                  content: "<strong>Oops!</strong> Connection error.",
+                  //style: "toast", // add a custom class to your snackbar
+                  timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                  htmlAllowed: true, // allows HTML as content value
+                  //onClose: function(){ } // callback called when the snackbar gets closed.
+               });
             }
          });
          return false;
@@ -410,27 +451,29 @@ function pageinit()
 
     function settingsPage()
     {
-        $('#ajax-table-panel').empty();
-      $('#ajax-panel').empty();
+      $('#ajax-table-panel').empty();
       $('#replaceable').empty();
       //Replace the whole content with another div content
       $('#replaceable').html($('#settings-content').html());
-        var server_ip = JSON.parse(localStorage.getItem("SERVER_IP"));
-        $('#server-url').attr("value", server_ip);
+      var server_ip = JSON.parse(localStorage.getItem("SERVER_IP"));
+      $('#server-url').attr("value", server_ip);
       $('#replaceable').trigger('create');
-        //Closing the left panel
+      //Closing the left panel
       $('#menu-button').trigger('click');
 
         // SETTINGS PAGE -> Save Changes
         $('#save-settings').click(function(){
-
             var server_url_text = document.getElementById('server-url').value;
-
             //TODO: checking URL integrity
-
             localStorage.setItem("SERVER_IP", JSON.stringify(new Object(server_url_text)));
             SERVER_IP = server_url_text;
-            alert("Server URL now is: " + server_url_text);
+            $.snackbar({
+               content: "Server IP has been set to: " + server_url_text,
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
         });
     }
 
@@ -454,7 +497,7 @@ function pageinit()
             if (data == 0)
             {
                     //Order deleted correctly, now displays other orders to make
-               listOrder($(event.target).attr("tableid"), 1)
+               listOrder($(event.target).attr("tableid"), 1);
             }
             else
             {
@@ -463,7 +506,13 @@ function pageinit()
             }
          },
          error:function(){
-            alert("Connection error. Reconnect and try later.");
+            $.snackbar({
+               content: "Connection error. Reconnect and try later.",
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
          }
       });
    }
@@ -475,10 +524,6 @@ function pageinit()
          url: SERVER_IP + "/myLuisella-server/findOrders.php",
 
          data: { tableId: t_id, toMake: to_make },
-         beforeSend:function(){
-            // this is where we append a loading image
-            $('#ajax-open-table').html('<div class="loading"><img src="css/images/ajax-loader.gif" alt="Loading..." /></div>');
-         },
          success:function(data){
             if(data == "1")
             {
@@ -515,8 +560,13 @@ function pageinit()
          },
          error:function(data){
             // failed request; give feedback to user
-            $('#ajax-open-table').empty();
-            $('#ajax-open-table').html('<strong>Oops!</strong> Try that again in a few moments.');
+            $.snackbar({
+               content: "<strong>Oops!</strong> Try that again in a few moments.",
+               //style: "toast", // add a custom class to your snackbar
+               timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+               htmlAllowed: true, // allows HTML as content value
+               //onClose: function(){ } // callback called when the snackbar gets closed.
+            });
          }
       });
    }
@@ -558,8 +608,13 @@ function pageinit()
                },
                error:function(){
                   // failed request; give feedback to user
-                  $('#ajax-modify-table').empty();
-                  $('#ajax-modify-table').html('Check your connection, <strong>please</strong>.');
+                  $.snackbar({
+                     content: "Check your connection, <strong>please</strong>.",
+                     //style: "toast", // add a custom class to your snackbar
+                     timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                     htmlAllowed: true, // allows HTML as content value
+                     //onClose: function(){ } // callback called when the snackbar gets closed.
+                  });
                }
             });
          }
@@ -574,7 +629,13 @@ function pageinit()
          var table_customers = document.getElementById('customers').value;
          if(table_name == "" || isNaN(table_number) || isNaN(table_customers) || table_number == "" || table_customers == "")
          {
-            $('#ajax-modify-table').html('<strong>Oops!</strong> Check what you wrote.');
+            $.snackbar({
+                     content: "<strong>Oops!</strong> Check what you wrote.",
+                     //style: "toast", // add a custom class to your snackbar
+                     timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                     htmlAllowed: true, // allows HTML as content value
+                     //onClose: function(){ } // callback called when the snackbar gets closed.
+                  });
             return false;
          }
 
@@ -582,29 +643,39 @@ function pageinit()
             type: 'POST',
             url: SERVER_IP + "/myLuisella-server/modifyTable.php",
             data: { tableId: t_id, tableName: table_name, tableNumber: table_number, customers: table_customers },
-            beforeSend:function(){
-               // this is where we append a loading image
-               $('#ajax-modify-table').html('<div class="loading"><img src="css/images/ajax-loader.gif" alt="Loading..." /></div>');
-            },
             success:function(data){
                if(data == "0")
                {
-                        //It's all ok. MODIFIED
-                  $('#ajax-modify-table').empty();
-                  $('#ajax-modify-table').html('<strong>Modified correctly</strong>.');
+                  $.snackbar({
+                     content: "Correctly modified",
+                     //style: "toast", // add a custom class to your snackbar
+                     timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                     htmlAllowed: true, // allows HTML as content value
+                     //onClose: function(){ } // callback called when the snackbar gets closed.
+                  });
                }
                else
                {
-                        //Something has broken. NOT MODIFIED
-                  $('#ajax-modify-table').empty();
-                  //$('#ajax-modify-table').html('<strong>Not modified. Something went wrong.</strong>.');
-                        $('#ajax-modify-table').html(data.toString());
-                    }
+                  //Something has broken. NOT MODIFIED
+                  var content = data.toString();
+                  $.snackbar({
+                     content: content,
+                     //style: "toast", // add a custom class to your snackbar
+                     timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                     htmlAllowed: true, // allows HTML as content value
+                     //onClose: function(){ } // callback called when the snackbar gets closed.
+                  });
+               }
             },
             error:function(){
                // failed request; give feedback to user
-               $('#ajax-modify-table').empty();
-               $('#ajax-modify-table').html('Check your connection, <strong>please</strong>.');
+               $.snackbar({
+                  content: "Check your connection, <strong>please</strong>.",
+                  //style: "toast", // add a custom class to your snackbar
+                  timeout: 4000, // time in milliseconds after the snackbar autohides, 0 is disabled
+                  htmlAllowed: true, // allows HTML as content value
+                  //onClose: function(){ } // callback called when the snackbar gets closed.
+               });
             }
          });
       });

@@ -25,6 +25,7 @@
 @import url("flexboxgrid.min.css");
 @import url("material-design-iconic-font.min.css");
 @font-face{font-family:Lato;font-style:normal;font-weight:600;src:local('Lato Bold'),local('Lato-Bold'),url(fonts/lato-bold.woff) format('woff'), url(fonts/lato-bold.ttf) format('truetype')}
+@font-face{font-family:Lato;font-style:normal;font-weight:bold;src:local('Lato Black'),local('Lato-Black'),url(fonts/lato-black.woff) format('woff'), url(fonts/lato-black.ttf) format('truetype')}
 
 body {
 	-webkit-transition: opacity 0.4s;
@@ -32,7 +33,7 @@ body {
 	-ms-transition: opacity 0.4s;
 	-o-transition: opacity 0.4s;
 	transition: opacity 0.4s;
-	font-size: 16px;
+	font-size: 18px;
 
 	opacity: 1;
 	text-shadow: none !important;
@@ -71,9 +72,9 @@ h1 { font-size: 56px; line-height: 1.2em; font-weight: 400; }
 h2 { font-size: 34px; line-height: 1.2em; font-weight: 400; }
 h3 { font-size: 24px; line-height: 1.2em; font-weight: 400; }
 h4 { font-size: 2sp; line-height: 1.2em; font-weight: 500; }
-h5 { font-size: 16px; line-height: 1.2em; font-weight: 400; }
-h6 { font-size: 14px; line-height: 1.2em; font-weight: 400;}
-p { font-size: 16px; line-height: 1.2em; }
+h5 { font-size: 18px; line-height: 1.2em; font-weight: 400; }
+h6 { font-size: 16px; line-height: 1.2em; font-weight: 400;}
+p { font-size: 18px; line-height: 1.2em; }
 
 .nd2-display-4 { font-size: 112px; line-height: 1.2em; font-weight: 100; display: block; }
 .nd2-display-3 { font-size: 56px; line-height: 1.2em; font-weight: 400; display: block; }
@@ -81,7 +82,7 @@ p { font-size: 16px; line-height: 1.2em; }
 .nd2-display-1 { font-size: 34px; line-height: 1.2em; font-weight: 400; display: block; }
 .nd2-headline { font-size: 24px; line-height: 1.2em; font-weight: 400; display: block; }
 .nd2-title { font-size: 2sp; line-height: 1.2em; font-weight: 500; display: block; }
-.nd2-subhead { font-size: 16px; line-height: 1.2em; font-weight: 400; display: block; }
+.nd2-subhead { font-size: 18px; line-height: 1.2em; font-weight: 400; display: block; }
 
 blockquote {
 	position: relative;
@@ -399,7 +400,7 @@ code {
 	background-color: transparent;
 	color: rgba(0,0,0, 0.54);
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 1.4em;
 }
 
@@ -432,7 +433,7 @@ code {
 
 .ui-listview > li p {
 	color: rgba(0, 0, 0, 0.54);
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .ui-content .ui-listview {
@@ -896,7 +897,7 @@ html .ui-btn.ui-checkbox-on.ui-checkbox-on:after {
 .ui-mobile label,
 .ui-controlgroup-label,
 .ui-controlgroup-label legend {
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: 400;
 	color: #696969;
 	margin-bottom: 0px;
@@ -909,7 +910,7 @@ html .ui-btn.ui-checkbox-on.ui-checkbox-on:after {
 
 .ui-input-text input, .ui-input-search input,
 textarea.ui-input-text.ui-textinput-autogrow {
-	font-size: 14px;
+	font-size: 16px;
 	border-radius: 0px;
 	border: 0px solid #ffffff;
 	position: relative;
@@ -1065,7 +1066,7 @@ html >body .ui-rangeslider .ui-rangeslider-sliders .ui-slider-track:first-child 
 	transition: all 0.4s;
 
 	color: #ffffff;
-	font-size: 14px;
+	font-size: 17px;
 
 	z-index: 999;
 
@@ -1422,7 +1423,7 @@ html >body .ui-rangeslider .ui-rangeslider-sliders .ui-slider-track:first-child 
 }
 
 .nd2-card .card-title .card-subtitle {
-	font-size: 14px;
+	font-size: 16px;
 	margin: 0px;
 	color: #8e8e8e;
 	font-weight: 400;

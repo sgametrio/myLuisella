@@ -1,3 +1,12 @@
+/*@font-face {
+   font-family:Montserrat;
+   font-style:normal;
+   font-weight:600;
+   src:local('Montserrat-Regular'), url(fonts/Montserrat-Regular.ttf) format('truetype')}
+}*/
+body {
+   font-size: 18px;
+}
 .no-margin-top {
    margin-top: 0;
    padding-top: 0;
@@ -18,7 +27,12 @@
 }
 button {
     /* important has been set to override jQM default button constructor property */
-    font-weight: 900 !important;
+    font-family: Lato !important;
+    font-weight: bold !important;
+}
+.snackbar {
+   font-family: Lato;
+   font-weight: bold;
 }
 .no-radius {
     /* important has been set to override jQM default button constructor property */
